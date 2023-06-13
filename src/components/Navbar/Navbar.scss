@@ -1,13 +1,35 @@
 .navbar {
     display: flex;
     align-items: center;
-    padding: 10px 30px;
+    height: 55px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-bottom: 0.5px solid rgb(228, 227, 227);
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 999;
 
     .left {
-        flex: 2.5;
+        flex: 3;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 5px;
+
+        .menu {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgb(240, 237, 237);
+            }
+        }
+
 
         img {
             width: 40px;
@@ -17,7 +39,7 @@
         }
 
         .school {
-            font-size: 20px;
+            font-size: 19px;
             text-decoration: none;
             font-weight: 500;
             color: #0d084d;
@@ -37,7 +59,7 @@
         padding: 5px 10px;
 
         .search {
-            color: lightgrey;
+            color: rgb(189, 189, 189);
         }
 
         input {
@@ -48,7 +70,7 @@
             font-size: 16px;
 
             &::placeholder {
-                color: lightgray;
+                color: rgb(186, 185, 185);
             }
         }
     }
@@ -60,10 +82,11 @@
         gap: 30px;
         margin-left: 30px;
 
-        span {
+        .link {
             cursor: pointer;
             font-family: 'Poppins', sans-serif;
             font-weight: 500;
+            color: #0d084d;
         }
 
         .user {
@@ -73,15 +96,15 @@
             cursor: pointer;
 
             img {
-                width: 30px;
-                height: 30px;
+                width: 35px;
+                height: 35px;
                 border-radius: 50%;
                 object-fit: cover;
                 gap: 15px;
             }
 
             span {
-                color: #0f068d;
+                color: maroon;
                 font-weight: 600;
             }
         }
