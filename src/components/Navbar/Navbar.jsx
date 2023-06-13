@@ -42,7 +42,6 @@ const Navbar = () => {
         />
       </form>
       <div className="right">
-        <span className="link">Login</span>
         <span className="link">Logout</span>
         <span className="link">About</span>
         <Badge
@@ -69,14 +68,17 @@ const Navbar = () => {
         >
           <Notifications color="action" />
         </Badge>
-        <div className="user">
-          <img
-            className="avatar"
-            src="https://images.pexels.com/photos/3771807/pexels-photo-3771807.jpeg?auto=compress&cs=tinysrgb&w=400"
-            alt=""
-          />
-          <span>John Doe</span>
-        </div>
+
+        <Link to="admin/profile" className="link">
+          <div className="user">
+            <img
+              className="avatar"
+              src="https://images.pexels.com/photos/3771807/pexels-photo-3771807.jpeg?auto=compress&cs=tinysrgb&w=400"
+              alt=""
+            />
+            <span>John Doe</span>
+          </div>
+        </Link>
       </div>
     </nav>
   )

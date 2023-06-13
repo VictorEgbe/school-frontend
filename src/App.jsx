@@ -1,9 +1,51 @@
 import './App.scss'
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
+import {
+  createBrowserRouter,
+  Outlet,
+  RouterProvider,
+  Navigate,
+} from 'react-router-dom'
 import Dashboard from './pages/Dashboard/Dashboard'
-import Teachers from './pages/Teachers/Teachers'
+import Teachers from './pages/teachers/Teachers'
 import Navbar from './components/Navbar/Navbar'
 import Sidebar from './components/Sidebar/Sidebar'
+import Teacher from './pages/teacher/Teacher'
+import Classes from './pages/classes/Classes'
+import Class from './pages/class/Class'
+import Students from './pages/students/Students'
+import Student from './pages/student/Student'
+import Subjects from './pages/subjects/Subjects'
+import Subject from './pages/subject/Subject'
+import Marks from './pages/marks/Marks'
+import Terms from './pages/terms/Terms'
+import Departments from './pages/departments/Departments'
+import Department from './pages/department/Department'
+import School from './pages/school/School'
+import Reports from './pages/reports/Reports'
+import Sequences from './pages/sequences/Sequences'
+import Years from './pages/years/Years'
+import Statistics from './pages/statistics/Statistics'
+import Profile from './pages/profile/Profile'
+import Login from './pages/login/Login'
+import Absences from './pages/absences/Absences'
+
+const user = { isAdmin: true, isAuthenticated: true }
+
+const AdminAuthRoutes = ({ children }) => {
+  if (user.isAuthenticated && user.isAdmin) {
+    return children
+  } else {
+    return <Navigate to="/admin/login" replace />
+  }
+}
+
+const AdminLoginRoute = ({ children }) => {
+  if (!user.isAuthenticated || !user.isAdmin) {
+    return children
+  } else {
+    return <Navigate to="/" replace />
+  }
+}
 
 const Layout = () => {
   return (
@@ -21,7 +63,11 @@ const Layout = () => {
 
 const router = createBrowserRouter([
   {
-    element: <Layout />,
+    element: (
+      <AdminAuthRoutes>
+        <Layout />
+      </AdminAuthRoutes>
+    ),
     children: [
       {
         path: '/',
@@ -31,7 +77,87 @@ const router = createBrowserRouter([
         path: '/teachers',
         element: <Teachers />,
       },
+      {
+        path: '/teachers/:id',
+        element: <Teacher />,
+      },
+      {
+        path: '/classes',
+        element: <Classes />,
+      },
+      {
+        path: '/classes/:id',
+        element: <Class />,
+      },
+      {
+        path: '/students',
+        element: <Students />,
+      },
+      {
+        path: '/students/:id',
+        element: <Student />,
+      },
+      {
+        path: '/subjects',
+        element: <Subjects />,
+      },
+      {
+        path: '/subjects/:id',
+        element: <Subject />,
+      },
+      {
+        path: '/marks',
+        element: <Marks />,
+      },
+      {
+        path: '/terms',
+        element: <Terms />,
+      },
+      {
+        path: '/sequences',
+        element: <Sequences />,
+      },
+      {
+        path: '/years',
+        element: <Years />,
+      },
+      {
+        path: '/statistics',
+        element: <Statistics />,
+      },
+      {
+        path: '/reports',
+        element: <Reports />,
+      },
+      {
+        path: '/departments',
+        element: <Departments />,
+      },
+      {
+        path: '/departments/:id',
+        element: <Department />,
+      },
+      {
+        path: '/my-school',
+        element: <School />,
+      },
+      {
+        path: '/admin/profile',
+        element: <Profile />,
+      },
+      {
+        path: '/absences',
+        element: <Absences />,
+      },
     ],
+  },
+  {
+    path: '/admin/login',
+    element: (
+      <AdminLoginRoute>
+        <Login />
+      </AdminLoginRoute>
+    ),
   },
 ])
 
