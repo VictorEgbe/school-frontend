@@ -1,3 +1,7 @@
 .app {
-    font-weight: 300;
+    display: flex;
+
+    .outlet {
+        flex: 10;
+    }
 }
