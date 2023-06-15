@@ -7,7 +7,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-
+            margin-bottom: 20px;
 
             .current {
 
@@ -17,7 +17,6 @@
                 font-size: 18px;
                 font-weight: 700;
                 color: #0d084d;
-                margin-bottom: 20px;
                 box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
                 -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
             }
@@ -26,35 +25,30 @@
 
         .basic {
             display: flex;
+            flex-direction: column;
+            gap: 20px;
 
-            .left {
-                flex: 1.5;
+            .top {
+                flex: 2;
                 display: flex;
-                flex-direction: column;
                 gap: 20px;
 
-
-                .card {
-                    border-radius: 5px;
-                    height: 175px;
-                    width: 90%;
-                    box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
-                    -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
-
-                }
             }
 
-            .right {
+            .bottom {
                 flex: 6;
                 display: flex;
-                flex-direction: column;
-                gap: 10px;
+                flex-direction: row-reverse;
+                gap: 25px;
 
-                .table {
+                .item {
                     flex: 1;
                     -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
                     box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
                     border-radius: 5px;
+                    overflow: hidden;
+                    padding: 10px 10px 0px 10px;
+                    max-height: 370px;
 
                 }
             }
