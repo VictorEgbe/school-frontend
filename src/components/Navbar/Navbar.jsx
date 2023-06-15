@@ -76,7 +76,7 @@ const Navbar = () => {
               src="https://images.pexels.com/photos/3771807/pexels-photo-3771807.jpeg?auto=compress&cs=tinysrgb&w=400"
               alt=""
             />
-            <span>John Doe</span>
+            <span>EGBE Victor Junior</span>
           </div>
         </Link>
       </div>
