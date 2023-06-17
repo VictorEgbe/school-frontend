@@ -1,12 +1,10 @@
 import './Card.scss'
 
-const Card = ({ name, icon, value, bg }) => {
+const Card = ({ name, icon, value }) => {
   return (
     <div className="card">
-      <div className="up" style={{ backgroundColor: bg }}>
-        {name}
-      </div>
-      <div className="down" style={{ color: bg }}>
+      <div className="up">{name}</div>
+      <div className="down">
         {icon}
         <span>{value}</span>
       </div>

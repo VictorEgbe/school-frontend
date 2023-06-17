@@ -22,7 +22,6 @@ const Dashboard = () => {
                 name={item.name}
                 icon={item.icon}
                 value={item.value}
-                bg={item.bg}
               />
             ))}
           </div>

@@ -18,7 +18,7 @@ const Login = () => {
 
   return (
     <div className="login">
-      <div className="card">
+      <div className="loginCard">
         <div className="left">
           <img
             src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/04/attachment_70879158-e1491506349597.jpg?auto=format&q=60&fit=max&w=930"
