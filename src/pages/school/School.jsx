@@ -6,13 +6,18 @@ import LocationOnIcon from '@mui/icons-material/LocationOn'
 import PhoneIcon from '@mui/icons-material/Phone'
 import EmailIcon from '@mui/icons-material/Email'
 import LanguageIcon from '@mui/icons-material/Language'
+import CreateIcon from '@mui/icons-material/Create'
 
 const School = () => {
   return (
     <div className="school">
       <div className="container">
-        <div className="edit">
-          <div className="icon" title="Edit school info">
+        <div className="actions">
+          <div className="create" title="Create School">
+            <CreateIcon />
+          </div>
+
+          <div className="edit" title="Edit school info">
             <BorderColorIcon />
           </div>
         </div>

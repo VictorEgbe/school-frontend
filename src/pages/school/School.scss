@@ -4,33 +4,75 @@
         padding: 30px;
         display: flex;
         flex-direction: column;
-        gap: 80px;
+        gap: 30px;
 
+        .actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .create,
         .edit {
-            position: relative;
+            width: 50px;
+            height: 50px;
+            padding: 10px;
+            box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+            -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-            .icon {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 500;
-                color: #0d084d;
-                height: 50px;
-                width: 50px;
-                padding: 10px;
-                border-radius: 50%;
-                cursor: pointer;
-                box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
-                -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
-                position: absolute;
-                right: 0;
+        .create {
+            color: rgb(4, 133, 4);
+            background-color: white;
 
-                &:hover {
-                    color: white;
-                    background-color: #0d084d;
-                }
+            &:hover {
+                color: white;
+                background-color: rgb(4, 133, 4);
             }
         }
+
+        .edit {
+            color: #0d084d;
+            background-color: white;
+
+            &:hover {
+                color: white;
+                background-color: #0d084d;
+            }
+        }
+
+
+
+        // .edit {
+        //     position: relative;
+
+        //     .icon {
+        //         display: flex;
+        //         align-items: center;
+        //         justify-content: center;
+        //         font-weight: 500;
+        //         color: #0d084d;
+        //         height: 50px;
+        //         width: 50px;
+        //         padding: 10px;
+        //         border-radius: 50%;
+        //         cursor: pointer;
+        //         box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+        //         -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+        //         position: absolute;
+        //         right: 0;
+
+        //         &:hover {
+        //             color: white;
+        //             background-color: #0d084d;
+        //         }
+        //     }
+        // }
 
         main {
 
