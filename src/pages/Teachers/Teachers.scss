@@ -1,3 +1,78 @@
+$base-color: #0d084d;
+$base-green-color: rgb(4, 133, 4);
+
 .teachers {
-    padding: 20px;
+    .teachersContainer {
+        padding: 20px 30px 20px 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        .action {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .add {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                padding: 10px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+                -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+                color: $base-green-color;
+
+                &:hover {
+                    background-color: $base-green-color;
+                    color: white;
+                }
+            }
+
+        }
+
+        .allTeachers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+
+            .teacherCard {
+                box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+                -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+                display: flex;
+                flex-direction: column;
+                padding: 5px;
+                gap: 3px;
+                border-radius: 5px;
+                transition: 0.6s all ease-in;
+
+                &:hover {
+                    transform: scale(1.06);
+                }
+
+                img {
+                    width: 265px;
+                    height: 300px;
+                    object-fit: cover;
+                }
+
+                .name {
+                    font-size: 20px;
+                    color: $base-color;
+                    text-transform: uppercase;
+                    align-self: center;
+                }
+
+                .teacherSubject {
+                    align-self: center;
+                    padding-bottom: 5px;
+                    font-size: 18px;
+                    color: grey;
+                }
+            }
+        }
+    }
 }
