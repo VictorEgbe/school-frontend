@@ -12,13 +12,12 @@ const Departments = () => {
         </div>
         {departments.map((department) => (
           <div className="departmentContainer" key={department.id}>
-            <Link className="link" to={`/departments/${department.id}`}>
+            <Link className="link" to={`/departments/${department.name}`}>
               <div className="departmentName">{department.name} Department</div>
             </Link>
             <div className="members">
               {department.members.map((member) => (
                 <Link
-                  state={{ name: member.firstName + ' ' + member.lastName }}
                   to={`/teachers/${member.id}`}
                   className="member link"
                   key={member.id}

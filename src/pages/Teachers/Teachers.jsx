@@ -17,7 +17,6 @@ const Teachers = () => {
           {newTeachers.map((teacher) => (
             <Link
               to={`/teachers/${teacher.id}`}
-              state={{ name: teacher.firstName }}
               className="teacherCard link"
               key={teacher.id}
             >
