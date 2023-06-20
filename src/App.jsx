@@ -28,6 +28,7 @@ import Statistics from './pages/statistics/Statistics'
 import Profile from './pages/profile/Profile'
 import Login from './pages/login/Login'
 import Absences from './pages/absences/Absences'
+import ClassAbsences from './pages/class_absences/ClassAbsences'
 
 const user = { isAdmin: true, isAuthenticated: true }
 
@@ -148,6 +149,10 @@ const router = createBrowserRouter([
       {
         path: '/absences',
         element: <Absences />,
+      },
+      {
+        path: '/absences/:classID',
+        element: <ClassAbsences />,
       },
     ],
   },
