@@ -63,6 +63,7 @@ $base-green-color: rgb(4, 133, 4);
                     background-color: $base-color;
                     color: white;
                     font-weight: 500;
+                    font-size: 18px;
                     text-transform: uppercase;
                 }
 
@@ -72,7 +73,7 @@ $base-green-color: rgb(4, 133, 4);
                     gap: 3px;
                     align-items: center;
                     font-size: 18px;
-                    color: gray;
+                    color: $base-color;
                     font-weight: 500;
 
                     span {

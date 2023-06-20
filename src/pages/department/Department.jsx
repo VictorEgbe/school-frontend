@@ -21,7 +21,6 @@ const Department = () => {
           {department.members.map((member) => (
             <Link
               to={`/teachers/${member.id}`}
-              state={{ name: member.firstName }}
               className="memberCard link"
               key={member.id}
             >
