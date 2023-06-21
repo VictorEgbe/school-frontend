@@ -27,18 +27,103 @@ $base-color: #0d084d;
             -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
             padding: 20px 50px;
             border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
 
-            .datePicker {
-                padding: 5px;
-                border: none;
-                outline: none;
-                border-bottom: 1px solid lightgray;
+            .upperSection {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
 
+                .datePicker {
+                    padding: 5px;
+                    border: none;
+                    outline: none;
+                    border-bottom: 1px solid lightgray;
+
+                }
+
+                p {
+                    color: #004d40;
+                    text-transform: uppercase;
+                    font-weight: bold;
+
+                }
             }
 
-            .classList {
-                margin-top: 20px;
-                min-height: 700px;
+
+            table {
+
+                width: 100%;
+                text-align: center;
+                border-collapse: collapse;
+                overflow: hidden;
+                border-radius: 10px 10px 0 0;
+
+                img {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+
+                thead {
+                    text-transform: uppercase;
+
+                    tr {
+                        background-color: $base-color;
+                        color: white;
+
+                        th {
+                            padding: 20px;
+                        }
+                    }
+                }
+
+                tbody {
+                    color: $base-color;
+                    font-weight: 500;
+
+                    tr {
+                        border-bottom: 1px solid #eeeeee;
+
+                        &:nth-child(even) {
+                            background-color: #eeeeee;
+                            ;
+                        }
+
+                        td {
+                            padding: 5px;
+                        }
+
+                        .name {
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+            }
+
+            button {
+
+                align-self: flex-end;
+                border: none;
+                padding: 10px;
+                color: white;
+                background-color: #009688;
+                width: 100px;
+                font-weight: 500;
+                cursor: pointer;
+                border-radius: 5px;
+                text-transform: uppercase;
+
+                &:hover {
+                    background-color: #00bfa5;
+                }
+
+                &:disabled {
+                    cursor: not-allowed;
+                }
             }
         }
     }
