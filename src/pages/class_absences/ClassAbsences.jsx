@@ -50,6 +50,7 @@ const ClassAbsences = () => {
                 <th>Student ID</th>
                 <th>Name</th>
                 <th>Absent?</th>
+                <th>Reason</th>
               </tr>
             </thead>
 
@@ -69,6 +70,9 @@ const ClassAbsences = () => {
                       disabled={loading}
                       inputProps={{ 'aria-label': 'controlled' }}
                     />
+                  </td>
+                  <td>
+                    <input type="text" className="reason" disabled={loading} />
                   </td>
                 </tr>
               ))}
