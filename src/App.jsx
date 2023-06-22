@@ -15,7 +15,7 @@ import Class from './pages/class/Class'
 import Students from './pages/students/Students'
 import Student from './pages/student/Student'
 import Subjects from './pages/subjects/Subjects'
-import Subject from './pages/subject/Subject'
+import ClassSubject from './pages/class_subjects/ClassSubject'
 import Marks from './pages/marks/Marks'
 import Terms from './pages/terms/Terms'
 import Departments from './pages/departments/Departments'
@@ -104,8 +104,8 @@ const router = createBrowserRouter([
         element: <Subjects />,
       },
       {
-        path: '/subjects/:id',
-        element: <Subject />,
+        path: '/subjects/:classID',
+        element: <ClassSubject />,
       },
       {
         path: '/marks',
