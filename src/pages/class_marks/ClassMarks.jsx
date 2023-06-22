@@ -1,12 +1,9 @@
 import { useState } from 'react'
-import './ClassAbsences.scss'
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
-import { students } from './data'
-import { Checkbox, CircularProgress } from '@mui/material'
+import './ClassMarks.scss'
+import { students, subjects } from './data'
+import { CircularProgress } from '@mui/material'
 
-const ClassAbsences = () => {
-  const [startDate, setStartDate] = useState(null)
+const ClassMarks = () => {
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = (e) => {
@@ -15,7 +12,7 @@ const ClassAbsences = () => {
   }
 
   return (
-    <div className="ClassAbsences">
+    <div className="classMarks">
       <div className="wrapper">
         <div className="info">
           <div className="classInfo">class: Form 1</div>
@@ -25,26 +22,30 @@ const ClassAbsences = () => {
         </div>
         <form onSubmit={handleSubmit}>
           <div className="upperSection">
-            <DatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              dateFormat="dd-MM-yyyy"
-              maxDate={new Date()}
-              filterDate={(date) => date.getDay() !== 6 && date.getDay() !== 0}
-              isClearable
-              showYearDropdown
-              scrollableYearDropdown
-              placeholderText="Select a date"
-              className="datePicker"
+            <select required name="subject">
+              <option disabled selected>
+                --Select the subject--
+              </option>
+              {subjects.map((s) => (
+                <option key={s.id}>{s.name}</option>
+              ))}
+            </select>
+            <p>Second Term</p>
+            <p>First Sequence</p>
+            <input
+              type="text"
+              placeholder="Enter Competency"
+              className="competency"
+              required
             />
-            <p className="instructions">
-              Select absent student by clicking on the box
-            </p>
           </div>
 
           <table>
             <colgroup>
               <col span={1} style={{ width: '5px' }}></col>
+              <col></col>
+              <col></col>
+              <col style={{ textAlign: 'left' }}></col>
             </colgroup>
             <thead>
               <tr>
@@ -52,8 +53,8 @@ const ClassAbsences = () => {
                 <th>Image</th>
                 <th>Student ID</th>
                 <th>Name</th>
-                <th>Absent?</th>
-                <th>Reason</th>
+                <th>Gender</th>
+                <th>Score</th>
               </tr>
             </thead>
 
@@ -66,20 +67,14 @@ const ClassAbsences = () => {
                   </td>
                   <td>{student.mat}</td>
                   <td className="name">{student.name}</td>
-                  <td>
-                    <Checkbox
-                      // checked={checked}
-                      // onChange={handleChange}
-                      disabled={loading}
-                      inputProps={{ 'aria-label': 'controlled' }}
-                    />
-                  </td>
+                  <td>{student.gender}</td>
                   <td>
                     <input
-                      type="text"
-                      className="reason"
+                      required
+                      type="number"
+                      min={0}
+                      max={20}
                       disabled={loading}
-                      placeholder="e.g Sick"
                     />
                   </td>
                 </tr>
@@ -103,4 +98,4 @@ const ClassAbsences = () => {
   )
 }
 
-export default ClassAbsences
+export default ClassMarks

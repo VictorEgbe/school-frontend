@@ -1,10 +1,10 @@
 $base-color: #0d084d;
 
-.ClassAbsences {
+.classMarks {
 
 
     .wrapper {
-        padding: 20px 100px 20px 100px;
+        padding: 20px 30px 20px 30px;
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -36,19 +36,44 @@ $base-color: #0d084d;
                 align-items: center;
                 justify-content: space-between;
 
-                .datePicker {
-                    padding: 5px;
+                select {
+                    padding: 8px;
+                    background-color: white;
                     border: none;
-                    outline: none;
-                    border-bottom: 1px solid lightgray;
+                    border: 1px solid #bdbdbd;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    color: #616161;
+                    text-transform: uppercase;
+                    font-weight: 500;
+                    width: 220px;
 
+                    option {
+                        color: black;
+
+                        &:disabled {
+                            color: #bdbdbd;
+                        }
+                    }
                 }
+
 
                 p {
                     color: #004d40;
                     text-transform: uppercase;
-                    font-weight: bold;
+                    font-size: 18px;
+                }
 
+                input[type="text"] {
+                    border: none;
+                    border: 1px solid #bdbdbd;
+                    outline: none;
+                    padding: 5px 8px;
+                    border-radius: 5px;
+                    background-color: transparent;
+                    width: 400px;
+                    font-size: 16px;
+                    color: #616161;
                 }
             }
 
@@ -62,8 +87,8 @@ $base-color: #0d084d;
                 border-radius: 10px 10px 0 0;
 
                 img {
-                    width: 50px;
-                    height: 50px;
+                    width: 40px;
+                    height: 40px;
                     border-radius: 50%;
                     object-fit: cover;
                 }
@@ -82,7 +107,7 @@ $base-color: #0d084d;
                 }
 
                 tbody {
-                    color: $base-color;
+                    // color: $base-color;
                     font-weight: 500;
 
                     tr {
@@ -96,12 +121,16 @@ $base-color: #0d084d;
                         td {
                             padding: 5px;
 
-                            input[type="text"] {
-                                border: none;
-                                border-bottom: 1px solid #bdbdbd;
+                            input[type="number"] {
+                                width: 60px;
+                                padding: 6px 8px;
+                                border: 1px solid #d9d9d9;
+                                background-color: white;
                                 outline: none;
-                                padding: 5px;
-                                background-color: transparent;
+                                border-radius: 5px;
+                                -moz-appearance: textfield;
+                                appearance: textfield;
+                                font-size: 16px;
                             }
                         }
 

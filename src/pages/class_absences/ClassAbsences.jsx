@@ -61,7 +61,7 @@ const ClassAbsences = () => {
               {students.map((student, index) => (
                 <tr key={student.id}>
                   <td>{index + 1}</td>
-                  <td>
+                  <td className="imageTD">
                     <img src={student.image} alt="" />
                   </td>
                   <td>{student.mat}</td>
@@ -74,13 +74,8 @@ const ClassAbsences = () => {
                       inputProps={{ 'aria-label': 'controlled' }}
                     />
                   </td>
-                  <td>
-                    <input
-                      type="text"
-                      className="reason"
-                      disabled={loading}
-                      placeholder="e.g Sick"
-                    />
+                  <td className="inputTD">
+                    <input type="text" disabled={loading} />
                   </td>
                 </tr>
               ))}

@@ -29,6 +29,7 @@ import Profile from './pages/profile/Profile'
 import Login from './pages/login/Login'
 import Absences from './pages/absences/Absences'
 import ClassAbsences from './pages/class_absences/ClassAbsences'
+import ClassMarks from './pages/class_marks/ClassMarks'
 
 const user = { isAdmin: true, isAuthenticated: true }
 
@@ -109,6 +110,10 @@ const router = createBrowserRouter([
       {
         path: '/marks',
         element: <Marks />,
+      },
+      {
+        path: '/marks/:classID',
+        element: <ClassMarks />,
       },
       {
         path: '/terms',
