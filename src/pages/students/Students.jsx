@@ -1,6 +1,5 @@
 import './Students.scss'
 import { classes } from './data'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
 import ManIcon from '@mui/icons-material/Man'
 import WomanIcon from '@mui/icons-material/Woman'
 import { Link } from 'react-router-dom'
@@ -11,9 +10,6 @@ const Students = () => {
       <div className="wrapper">
         <div className="info">
           <p className="select">Select a class to view students</p>
-          <div title="Add a student" className="add">
-            <AddCircleIcon />
-          </div>
         </div>
 
         <div className="classesCardsContainer">
