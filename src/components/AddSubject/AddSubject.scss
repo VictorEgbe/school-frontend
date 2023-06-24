@@ -10,5 +10,126 @@
         margin: 10px;
         padding: 30px;
         border-radius: 10px;
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .upper {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                .subjectName {
+                    flex: 3;
+                    padding: 10px;
+                    border: none;
+                    border: 1px solid #e0e0e0;
+                    background-color: transparent;
+                    border-radius: 5px;
+                    font-weight: 500;
+                    outline: none;
+                    letter-spacing: 3px;
+                    font-size: 16px;
+
+
+
+                }
+
+                .coefficient {
+                    flex: 1;
+                    padding: 10px;
+                    border-radius: 5px;
+                    border: none;
+                    background-color: transparent;
+                    border: 1px solid #e0e0e0;
+                    cursor: pointer;
+                    text-transform: uppercase;
+                    font-weight: 500;
+                    font-size: 16px;
+                }
+
+                .teacherName {
+                    flex: 3;
+                    display: flex;
+                    align-items: center;
+                    gap: 3px;
+
+                    select {
+                        width: 95%;
+                        padding: 10px;
+                        border-radius: 5px;
+                        border: none;
+                        background-color: transparent;
+                        border: 1px solid #e0e0e0;
+                        cursor: pointer;
+                        text-transform: uppercase;
+                        font-weight: 500;
+                        letter-spacing: 2px;
+                        word-spacing: 5px;
+                        font-size: 16px;
+
+                    }
+
+                    .addIcon {
+                        color: green;
+                        cursor: pointer;
+                        height: 40px;
+                        width: 40px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        &:hover {
+                            background-color: #e0e0e0;
+                        }
+
+                    }
+                }
+            }
+
+            .lower {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                button {
+                    padding: 10px;
+                    border: none;
+                    border-radius: 5px;
+                    font-weight: 500;
+                    cursor: pointer;
+                    color: white;
+                    text-transform: uppercase;
+                }
+
+                .cancel {
+                    background-color: #aa00ff;
+
+                    &:hover {
+                        background-color: #ba68c8;
+                    }
+                }
+
+                .addSub {
+                    background-color: #004d40;
+
+                    &:hover {
+                        background-color: #009688;
+                    }
+                }
+
+                .submit {
+                    background-color: #1a237e;
+
+                    &:hover {
+                        background-color: #3f51b5;
+                    }
+
+                }
+            }
+        }
     }
 }

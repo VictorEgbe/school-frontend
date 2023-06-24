@@ -110,7 +110,7 @@ export const subjects = [
     name: 'English Language',
   },
   {
-    id: '2',
+    id: '3',
     name: 'Physics',
   },
   {

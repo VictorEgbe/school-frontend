@@ -23,9 +23,7 @@ const ClassMarks = () => {
         <form onSubmit={handleSubmit}>
           <div className="upperSection">
             <select required name="subject">
-              <option disabled selected>
-                --Select the subject--
-              </option>
+              <option disabled>--Select the subject--</option>
               {subjects.map((s) => (
                 <option key={s.id}>{s.name}</option>
               ))}
