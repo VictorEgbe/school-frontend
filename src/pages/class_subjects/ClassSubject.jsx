@@ -1,106 +1,46 @@
+import { useState } from 'react'
 import './ClassSubject.scss'
-import { coefficients, subjects, teachers } from './data'
-import AddIcon from '@mui/icons-material/Add'
+import { subjects } from './data'
+import AddSubject from '../../components/AddSubject/AddSubject'
 
 const ClassSubject = () => {
+  const [open, setOpen] = useState(false)
+
   return (
-    <div className="classSubject">
-      <div className="wrapper">
-        <div className="info">Upper Sixth Science</div>
-        <section>
-          <div className="sectionWrapper">
-            <div className="subject">
-              <select>
-                <option disabled selected>
-                  --Select the subject--
-                </option>
-                {subjects.map((subject) => (
-                  <option key={subject.id}>{subject.name}</option>
-                ))}
-              </select>
-              <AddIcon
-                className="icon"
-                sx={{ fontSize: '1.8rem' }}
-                titleAccess="CREATE SUBJECT"
-              />
-            </div>
+    <>
+      {open && <AddSubject setOpen={setOpen} />}
+      <div className="classSubject">
+        <div className="wrapper">
+          <div className="info">Upper Sixth Science and Arts</div>
 
-            <div className="coefficient">
-              <select>
-                <option disabled selected>
-                  --Coefficient--
-                </option>
-                {coefficients.map((c) => (
-                  <option key={c.id}>{c.coefficient}</option>
-                ))}
-              </select>
-            </div>
+          <table>
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>Subject Name</th>
+                <th>Coefficient</th>
+                <th>Teacher(s)</th>
+              </tr>
+            </thead>
 
-            <div className="teacher">
-              <select>
-                <option disabled selected>
-                  --Select the teacher--
-                </option>
-                {teachers.map((t) => (
-                  <option key={t.id}>{t.name}</option>
-                ))}
-              </select>
-              <AddIcon
-                className="icon"
-                sx={{ fontSize: '1.8rem' }}
-                titleAccess="CREATE TEACHER"
-              />
-            </div>
+            <tbody>
+              {subjects.map((s, i) => (
+                <tr key={s.id}>
+                  <td>{i + 1}</td>
+                  <td>{s.name}</td>
+                  <td>{s.coefficient}</td>
+                  <td>{s.teacher}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <div onClick={() => setOpen(true)} className="addBtn">
+            Add Subject
           </div>
-        </section>
-        <section>
-          <div className="sectionWrapper">
-            <div className="subject">
-              <select>
-                <option disabled selected>
-                  --Select the subject--
-                </option>
-                {subjects.map((subject) => (
-                  <option key={subject.id}>{subject.name}</option>
-                ))}
-              </select>
-              <AddIcon
-                className="icon"
-                sx={{ fontSize: '1.8rem' }}
-                titleAccess="CREATE SUBJECT"
-              />
-            </div>
-
-            <div className="coefficient">
-              <select>
-                <option disabled selected>
-                  --Coefficient--
-                </option>
-                {coefficients.map((c) => (
-                  <option key={c.id}>{c.coefficient}</option>
-                ))}
-              </select>
-            </div>
-
-            <div className="teacher">
-              <select>
-                <option disabled selected>
-                  --Select the teacher--
-                </option>
-                {teachers.map((t) => (
-                  <option key={t.id}>{t.name}</option>
-                ))}
-              </select>
-              <AddIcon
-                className="icon"
-                sx={{ fontSize: '1.8rem' }}
-                titleAccess="CREATE TEACHER"
-              />
-            </div>
-          </div>
-        </section>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
