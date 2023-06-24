@@ -19,7 +19,57 @@ $base-color: #0d084d;
             color: $base-color;
         }
 
-        // .table {}
+        table {
+            text-align: center;
+            border-collapse: collapse;
+            overflow: hidden;
+            text-transform: uppercase;
+
+            thead {
+
+                tr {
+                    background-color: $base-color;
+                    color: white;
+
+                    th {
+                        padding: 10px;
+                        // border: 1px solid $base-color;
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    td {
+                        padding: 10px;
+                        // border: 1px solid $base-color;
+
+                        ol {
+                            list-style: none;
+                            padding: 0;
+                            margin: 0;
+                            font-weight: 500;
+
+                            li {
+                                &:nth-child(2) {
+
+                                    &::before {
+                                        content: "and  ";
+                                        color: teal;
+                                        text-transform: lowercase;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    &:nth-child(even) {
+                        background-color: #eeeeee;
+                    }
+                }
+            }
+
+        }
 
         .addBtn {
             background-color: teal;
@@ -30,6 +80,7 @@ $base-color: #0d084d;
             cursor: pointer;
             font-weight: 500;
             color: white;
+            text-transform: uppercase;
         }
 
     }

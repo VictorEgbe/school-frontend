@@ -14,11 +14,17 @@ const ClassSubject = () => {
           <div className="info">Upper Sixth Science and Arts</div>
 
           <table>
+            <colgroup>
+              <col style={{ width: '10px' }}></col>
+              <col></col>
+              <col style={{ width: '30px' }}></col>
+              <col></col>
+            </colgroup>
             <thead>
               <tr>
                 <th>S/N</th>
                 <th>Subject Name</th>
-                <th>Coefficient</th>
+                <th>Coef</th>
                 <th>Teacher(s)</th>
               </tr>
             </thead>
@@ -29,7 +35,13 @@ const ClassSubject = () => {
                   <td>{i + 1}</td>
                   <td>{s.name}</td>
                   <td>{s.coefficient}</td>
-                  <td>{s.teacher}</td>
+                  <td>
+                    <ol>
+                      {s.teacher.map((t, index) => (
+                        <li key={index}>{t}</li>
+                      ))}
+                    </ol>
+                  </td>
                 </tr>
               ))}
             </tbody>
