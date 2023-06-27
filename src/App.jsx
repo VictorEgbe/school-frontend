@@ -17,11 +17,9 @@ import Student from './pages/student/Student'
 import Subjects from './pages/subjects/Subjects'
 import ClassSubject from './pages/class_subjects/ClassSubject'
 import Marks from './pages/marks/Marks'
-import Terms from './pages/terms/Terms'
 import Departments from './pages/departments/Departments'
 import Department from './pages/department/Department'
 import School from './pages/school/School'
-import Sequences from './pages/sequences/Sequences'
 import Years from './pages/years/Years'
 import Statistics from './pages/statistics/Statistics'
 import Profile from './pages/profile/Profile'
@@ -117,15 +115,7 @@ const router = createBrowserRouter([
         element: <ClassMarks />,
       },
       {
-        path: '/terms',
-        element: <Terms />,
-      },
-      {
-        path: '/sequences',
-        element: <Sequences />,
-      },
-      {
-        path: '/years',
+        path: '/years-terms-sequences',
         element: <Years />,
       },
       {

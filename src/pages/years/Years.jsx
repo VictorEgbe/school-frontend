@@ -10,13 +10,10 @@ const Years = () => {
   return (
     <div className="years">
       <div className="container">
-        <section className="create" title="Create a New Year">
-          <AddIcon className="icon" />
-        </section>
         <table>
           <thead>
             <tr>
-              <th>Year</th>
+              <th>Years</th>
               <th>Active?</th>
               <th>Actions</th>
             </tr>
@@ -57,6 +54,11 @@ const Years = () => {
             </tr>
           ))}
         </table>
+
+        <div className="termSequenceWrapper">
+          <div className="terms">Terms</div>
+          <div className="sequences">Sequences</div>
+        </div>
       </div>
     </div>
   )

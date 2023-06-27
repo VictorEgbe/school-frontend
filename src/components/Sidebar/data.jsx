@@ -80,24 +80,12 @@ export const data = [
   {
     id: 12,
     icon: <CalendarMonth />,
-    to: '/years',
-    content: 'Years',
-  },
-  {
-    id: 13,
-    icon: <Gavel />,
-    to: '/terms',
-    content: 'Terms',
-  },
-  {
-    id: 14,
-    icon: <AnimationSharp />,
-    to: '/sequences',
-    content: 'Sequences',
+    to: '/years-terms-sequences',
+    content: 'Years/Terms/Sequences',
   },
 
   {
-    id: 11,
+    id: 13,
     icon: <LocalPrintshopIcon />,
     to: '/prints',
     content: 'Prints',
