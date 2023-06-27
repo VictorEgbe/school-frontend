@@ -1,6 +1,5 @@
 import {
   AnimationSharp,
-  Article,
   Assessment,
   CalendarMonth,
   Class,
@@ -14,6 +13,7 @@ import {
   Subject,
   Tab,
 } from '@mui/icons-material'
+import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop'
 
 export const data = [
   {
@@ -76,12 +76,7 @@ export const data = [
     to: '/statistics',
     content: 'Statistics',
   },
-  {
-    id: 11,
-    icon: <Article />,
-    to: '/reports',
-    content: 'Reports',
-  },
+
   {
     id: 12,
     icon: <CalendarMonth />,
@@ -99,5 +94,12 @@ export const data = [
     icon: <AnimationSharp />,
     to: '/sequences',
     content: 'Sequences',
+  },
+
+  {
+    id: 11,
+    icon: <LocalPrintshopIcon />,
+    to: '/prints',
+    content: 'Prints',
   },
 ]

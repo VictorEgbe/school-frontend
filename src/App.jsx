@@ -21,7 +21,6 @@ import Terms from './pages/terms/Terms'
 import Departments from './pages/departments/Departments'
 import Department from './pages/department/Department'
 import School from './pages/school/School'
-import Reports from './pages/reports/Reports'
 import Sequences from './pages/sequences/Sequences'
 import Years from './pages/years/Years'
 import Statistics from './pages/statistics/Statistics'
@@ -30,6 +29,8 @@ import Login from './pages/login/Login'
 import Absences from './pages/absences/Absences'
 import ClassAbsences from './pages/class_absences/ClassAbsences'
 import ClassMarks from './pages/class_marks/ClassMarks'
+import ClassStatistics from './pages/class_statistics/Statistics'
+import Prints from './pages/prints/Prints'
 
 const user = { isAdmin: true, isAuthenticated: true }
 
@@ -132,8 +133,12 @@ const router = createBrowserRouter([
         element: <Statistics />,
       },
       {
-        path: '/reports',
-        element: <Reports />,
+        path: '/statistics/:classID',
+        element: <ClassStatistics />,
+      },
+      {
+        path: '/prints',
+        element: <Prints />,
       },
       {
         path: '/departments',

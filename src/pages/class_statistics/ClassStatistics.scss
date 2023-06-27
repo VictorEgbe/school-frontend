@@ -1,0 +1,41 @@
+$base-color: #0d084d;
+$base-green-color: rgb(4, 133, 4);
+
+.classStatistics {
+
+    .wrapper {
+        padding: 20px 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .className {
+            box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+            -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+            width: max-content;
+            padding: 10px;
+            border-radius: 10px;
+            color: $base-color;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .statsWrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+
+
+            .stats {
+                width: 580px;
+                box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+                -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+                padding: 20px;
+                height: 400px;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+        }
+
+    }
+}

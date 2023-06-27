@@ -3,6 +3,7 @@
     background-color: rgba(0, 0, 0, 0.3);
     width: 100%;
     min-height: 100%;
+    backdrop-filter: blur(2px);
 
     .addWrapper {
         background-color: white;
@@ -94,6 +95,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+                padding-right: 40px;
 
                 button {
                     padding: 10px;
