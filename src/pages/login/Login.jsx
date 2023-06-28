@@ -2,38 +2,46 @@ import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material'
 import './Login.scss'
 import { useState } from 'react'
 import { CircularProgress } from '@mui/material'
-import { apiCalls } from '../../apiCalls/index'
 import { loginStart, loginFailure, loginSuccess } from '../../redux/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios'
+import { Navigate } from 'react-router-dom'
+
+const URL = 'http://localhost:8000/api/accounts/sign_in'
 
 const Login = () => {
   const [visible, setVisible] = useState(false)
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
-  const { isLoading, error } = useSelector((state) => state)
+  const isLoading = useSelector((state) => state.isLoading)
+  const error = useSelector((state) => state.error)
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault()
-    dispatch(loginStart)
-    try {
-      const data = JSON.stringify({ phone, password })
-      const response = await apiCalls.post('accounts/sign_in', data)
-      if (response.data.user.isAdmin) {
-        dispatch(loginSuccess(response.data))
-      } else {
-        const msg = 'You are not authorized to view this site. Admins only!'
-        dispatch(loginFailure(msg))
-      }
-    } catch (err) {
-      if (err.response.data.phone) {
-        dispatch(loginFailure(err.response.data.phone[0]))
-      } else if (err.response.data.non_field_errors) {
-        dispatch(loginFailure(err.response.data.non_field_errors[0]))
-      } else {
-        dispatch(loginFailure('Something went wrong'))
-      }
-    }
+    const data = JSON.stringify({ phone, password })
+    axios
+      .post(URL, data, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then((response) => {
+        if (response.data.user.isAdmin) {
+          dispatch(loginSuccess(response.data))
+          // return <Navigate to="/admin/dashboard" />
+        } else {
+          const msg = 'You are not authorized to view this site. Admins only!'
+          dispatch(loginFailure(msg))
+        }
+      })
+      .catch((err) => {
+        if (err.response.data.phone) {
+          dispatch(loginFailure(err.response.data.phone[0]))
+        } else if (err.response.data.non_field_errors) {
+          dispatch(loginFailure(err.response.data.non_field_errors[0]))
+        } else {
+          dispatch(loginFailure('Something went wrong'))
+        }
+      })
   }
 
   return (

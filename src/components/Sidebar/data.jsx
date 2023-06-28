@@ -79,7 +79,7 @@ export const data = [
     id: 12,
     icon: <CalendarMonth />,
     to: '/admin/years-terms-sequences',
-    content: 'Years/Terms/Sequences',
+    content: 'Years',
   },
 
   {

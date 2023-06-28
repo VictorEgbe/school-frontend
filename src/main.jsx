@@ -6,6 +6,25 @@ import { store } from './redux/store'
 import { Provider } from 'react-redux'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { loadUserFailure, loadUserSuccess } from './redux/authSlice'
+import axios from 'axios'
+
+const token = JSON.parse(localStorage.getItem('auth'))
+  ? JSON.parse(localStorage.getItem('auth')).token
+  : null
+if (token) {
+  axios
+    .get('http://localhost:8000/api/accounts/load_user', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${token}`,
+      },
+    })
+    .then((response) => store.dispatch(loadUserSuccess(response.data)))
+    .catch(() => store.dispatch(loadUserFailure()))
+} else {
+  store.dispatch(loadUserFailure())
+}
 
 const queryClient = new QueryClient()
 

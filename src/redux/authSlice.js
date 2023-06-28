@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  user: {},
+  user: JSON.parse(localStorage.getItem('user')),
   isLoading: false,
   error: '',
 }
@@ -14,16 +14,40 @@ export const authSlice = createSlice({
       state.isLoading = true
     },
     loginFailure: (state, action) => {
+      localStorage.removeItem('user')
+      localStorage.removeItem('auth')
       state.isLoading = false
       state.error = action.payload
+      state.user = {}
     },
     loginSuccess: (state, action) => {
+      localStorage.setItem('user', JSON.stringify(action.payload.user))
+      localStorage.setItem('auth', JSON.stringify(action.payload.auth))
+      state.isLoading = false
+      state.user = action.payload.user
+      state.error = ''
+    },
+    loadUserSuccess: (state, action) => {
+      localStorage.setItem('user', JSON.stringify(action.payload))
       state.isLoading = false
       state.user = action.payload
+      state.error = ''
+    },
+    loadUserFailure: (state) => {
+      localStorage.removeItem('user')
+      localStorage.removeItem('auth')
+      state.isLoading = false
+      state.error = ''
     },
   },
 })
 
-export const { loginStart, loginFailure, loginSuccess } = authSlice.actions
+export const {
+  loginStart,
+  loginFailure,
+  loginSuccess,
+  loadUserSuccess,
+  loadUserFailure,
+} = authSlice.actions
 
 export default authSlice.reducer

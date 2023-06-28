@@ -33,10 +33,14 @@ import Home from './pages/teachersPages/home/Home'
 import TeacherNavbar from './pages/teachersPages/navbar/TeacherNavbar'
 import TeacherLogin from './pages/teachersPages/Login/Login'
 
-const user = { isAdmin: true, isAuthenticated: true }
-
+const user = localStorage.getItem('user')
+  ? JSON.parse(localStorage.getItem('user'))
+  : {}
+const isAuthenticated = JSON.parse(localStorage.getItem('auth'))?.token
+  ? true
+  : false
 const AdminAuthRoutes = ({ children }) => {
-  if (user.isAuthenticated && user.isAdmin) {
+  if (isAuthenticated && user.isAdmin) {
     return children
   } else {
     return <Navigate to="/admin/login" replace />
@@ -44,7 +48,7 @@ const AdminAuthRoutes = ({ children }) => {
 }
 
 const AdminLoginRoute = ({ children }) => {
-  if (!user.isAuthenticated || !user.isAdmin) {
+  if (!isAuthenticated || !user.isAdmin) {
     return children
   } else {
     return <Navigate to="/admin/dashboard" replace />
@@ -66,7 +70,7 @@ const Layout = () => {
 }
 
 const TeacherAuthRoutes = ({ children }) => {
-  if (user.isAuthenticated && !user.isAdmin) {
+  if (isAuthenticated && !user.isAdmin) {
     return children
   } else {
     return <Navigate to="/admin/login" replace />
@@ -74,7 +78,7 @@ const TeacherAuthRoutes = ({ children }) => {
 }
 
 const TeacherLoginRoute = ({ children }) => {
-  if (!user.isAuthenticated) {
+  if (!isAuthenticated) {
     return children
   } else {
     return <Navigate to="/" replace />
