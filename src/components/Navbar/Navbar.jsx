@@ -6,7 +6,7 @@ import {
 } from '@mui/icons-material'
 import { Badge } from '@mui/material'
 import './Navbar.scss'
-import { Link, redirect, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Avatar from '../../assets/avatar.png'
@@ -17,7 +17,6 @@ const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const handleSearch = async (e) => {
     e.preventDefault()

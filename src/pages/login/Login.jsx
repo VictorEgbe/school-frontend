@@ -5,8 +5,6 @@ import { CircularProgress } from '@mui/material'
 import { loginStart, loginFailure, loginSuccess } from '../../redux/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
-import { useNavigate, redirect } from 'react-router-dom'
-
 const URL = 'http://localhost:8000/api/accounts/sign_in'
 
 const Login = () => {
@@ -16,7 +14,6 @@ const Login = () => {
   const dispatch = useDispatch()
   const isLoading = useSelector((state) => state.isLoading)
   const error = useSelector((state) => state.error)
-  const navigate = useNavigate()
 
   const handleLogin = (e) => {
     e.preventDefault()
@@ -31,7 +28,8 @@ const Login = () => {
           dispatch(loginSuccess(response.data))
           location.reload()
         } else {
-          const msg = 'You are not authorized to view this site. Admins only!'
+          const msg =
+            'You are not an administrator. This site is for administrators only'
           dispatch(loginFailure(msg))
         }
       })
@@ -88,7 +86,11 @@ const Login = () => {
                 />
               )}
               <button disabled={isLoading} type="submit">
-                {isLoading ? <CircularProgress size={20} /> : 'Login'}
+                {isLoading ? (
+                  <CircularProgress color="error" size={15} />
+                ) : (
+                  'Login'
+                )}
               </button>
             </form>
             {error && <p className="error">{error}</p>}
