@@ -16,7 +16,7 @@ const Teachers = () => {
         <div className="allTeachers">
           {newTeachers.map((teacher) => (
             <Link
-              to={`/teachers/${teacher.id}`}
+              to={`/admin/teachers/${teacher.id}`}
               className="teacherCard link"
               key={teacher.id}
             >

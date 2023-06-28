@@ -33,7 +33,7 @@ import Home from './pages/teachersPages/home/Home'
 import TeacherNavbar from './pages/teachersPages/navbar/TeacherNavbar'
 import TeacherLogin from './pages/teachersPages/Login/Login'
 
-const user = { isAdmin: false, isAuthenticated: true }
+const user = { isAdmin: true, isAuthenticated: true }
 
 const AdminAuthRoutes = ({ children }) => {
   if (user.isAuthenticated && user.isAdmin) {
@@ -69,7 +69,7 @@ const TeacherAuthRoutes = ({ children }) => {
   if (user.isAuthenticated && !user.isAdmin) {
     return children
   } else {
-    return <Navigate to="/login" replace />
+    return <Navigate to="/admin/login" replace />
   }
 }
 

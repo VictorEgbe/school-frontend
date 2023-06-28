@@ -55,7 +55,7 @@ const Teacher = () => {
               </div>
               <div className="item">
                 <Diversity3 />
-                <Link className="link" to={`/departments/mathematics`}>
+                <Link className="link" to={`/admin/departments/mathematics`}>
                   {teacher.department}
                 </Link>
               </div>

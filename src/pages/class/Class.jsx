@@ -21,7 +21,7 @@ const Class = () => {
         <div className="classMembers">
           {_class.students.map((student) => (
             <Link
-              to={`/students/${student.id}`}
+              to={`/admin/students/${student.id}`}
               className="studentClassCard link"
               key={student.id}
             >

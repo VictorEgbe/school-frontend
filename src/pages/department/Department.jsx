@@ -20,7 +20,7 @@ const Department = () => {
         <div className="departmentMembers">
           {department.members.map((member) => (
             <Link
-              to={`/teachers/${member.id}`}
+              to={`/admin/teachers/${member.id}`}
               className="memberCard link"
               key={member.id}
             >

@@ -15,7 +15,7 @@ const Statistics = () => {
         <div className="classesCardsContainer">
           {classes.map((c) => (
             <Link
-              to={`/statistics/${c.id}`}
+              to={`/admin/statistics/${c.id}`}
               className="classCard link"
               key={c.id}
             >

@@ -45,7 +45,7 @@ const Student = () => {
               </div>
               <div className="item">
                 <Class />
-                <Link className="link" to={`/classes/${1}`}>
+                <Link className="link" to={`/admin/classes/${1}`}>
                   {student.studentClass}
                 </Link>
               </div>

@@ -14,7 +14,11 @@ const Marks = () => {
 
         <div className="classesCardsContainer">
           {classes.map((c) => (
-            <Link to={`/marks/${c.id}`} className="classCard link" key={c.id}>
+            <Link
+              to={`/admin/marks/${c.id}`}
+              className="classCard link"
+              key={c.id}
+            >
               <div className="topClass">{c.name}</div>
               <div className="bottomClass">
                 <span>
