@@ -6,15 +6,32 @@ import {
 } from '@mui/icons-material'
 import { Badge } from '@mui/material'
 import './Navbar.scss'
-import { Link } from 'react-router-dom'
+import { Link, redirect, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import Avatar from '../../assets/avatar.png'
+import { authCall } from '../../apiCalls'
+import { logout } from '../../redux/authSlice'
 
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState('')
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleSearch = async (e) => {
     e.preventDefault()
     console.log(searchTerm)
+  }
+
+  const handleLogout = () => {
+    authCall
+      .post('accounts/sign_out')
+      .then(() => {
+        dispatch(logout())
+        location.reload()
+      })
+      .catch((err) => console.log(err.response.data))
   }
 
   return (
@@ -42,7 +59,9 @@ const Navbar = () => {
         />
       </form>
       <div className="right">
-        <span className="link">Logout</span>
+        <span onClick={handleLogout} className="link">
+          Logout
+        </span>
         <span className="link">About</span>
         <Badge
           className="badge"
@@ -73,10 +92,10 @@ const Navbar = () => {
           <div className="user">
             <img
               className="avatar"
-              src="https://images.pexels.com/photos/3771807/pexels-photo-3771807.jpeg?auto=compress&cs=tinysrgb&w=400"
+              src={user.image ? user.image : Avatar}
               alt=""
             />
-            <span>EGBE Victor Junior</span>
+            <span>{user.fullName}</span>
           </div>
         </Link>
       </div>

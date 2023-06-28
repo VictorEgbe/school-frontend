@@ -5,7 +5,7 @@ import { CircularProgress } from '@mui/material'
 import { loginStart, loginFailure, loginSuccess } from '../../redux/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
-import { Navigate } from 'react-router-dom'
+import { useNavigate, redirect } from 'react-router-dom'
 
 const URL = 'http://localhost:8000/api/accounts/sign_in'
 
@@ -16,9 +16,11 @@ const Login = () => {
   const dispatch = useDispatch()
   const isLoading = useSelector((state) => state.isLoading)
   const error = useSelector((state) => state.error)
+  const navigate = useNavigate()
 
   const handleLogin = (e) => {
     e.preventDefault()
+    dispatch(loginStart())
     const data = JSON.stringify({ phone, password })
     axios
       .post(URL, data, {
@@ -27,7 +29,7 @@ const Login = () => {
       .then((response) => {
         if (response.data.user.isAdmin) {
           dispatch(loginSuccess(response.data))
-          // return <Navigate to="/admin/dashboard" />
+          location.reload()
         } else {
           const msg = 'You are not authorized to view this site. Admins only!'
           dispatch(loginFailure(msg))

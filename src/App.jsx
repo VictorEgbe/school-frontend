@@ -39,6 +39,7 @@ const user = localStorage.getItem('user')
 const isAuthenticated = JSON.parse(localStorage.getItem('auth'))?.token
   ? true
   : false
+
 const AdminAuthRoutes = ({ children }) => {
   if (isAuthenticated && user.isAdmin) {
     return children

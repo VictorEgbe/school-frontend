@@ -39,6 +39,13 @@ export const authSlice = createSlice({
       state.isLoading = false
       state.error = ''
     },
+    logout: (state) => {
+      localStorage.removeItem('user')
+      localStorage.removeItem('auth')
+      state.isLoading = false
+      state.error = ''
+      state.user = {}
+    },
   },
 })
 
@@ -48,6 +55,7 @@ export const {
   loginSuccess,
   loadUserSuccess,
   loadUserFailure,
+  logout,
 } = authSlice.actions
 
 export default authSlice.reducer
