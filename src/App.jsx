@@ -29,8 +29,11 @@ import ClassAbsences from './pages/class_absences/ClassAbsences'
 import ClassMarks from './pages/class_marks/ClassMarks'
 import ClassStatistics from './pages/class_statistics/Statistics'
 import Prints from './pages/prints/Prints'
+import Home from './pages/teachersPages/home/Home'
+import TeacherNavbar from './pages/teachersPages/navbar/TeacherNavbar'
+import TeacherLogin from './pages/teachersPages/Login/Login'
 
-const user = { isAdmin: true, isAuthenticated: true }
+const user = { isAdmin: false, isAuthenticated: true }
 
 const AdminAuthRoutes = ({ children }) => {
   if (user.isAuthenticated && user.isAdmin) {
@@ -44,7 +47,7 @@ const AdminLoginRoute = ({ children }) => {
   if (!user.isAuthenticated || !user.isAdmin) {
     return children
   } else {
-    return <Navigate to="/" replace />
+    return <Navigate to="/admin/dashboard" replace />
   }
 }
 
@@ -62,7 +65,55 @@ const Layout = () => {
   )
 }
 
+const TeacherAuthRoutes = ({ children }) => {
+  if (user.isAuthenticated && !user.isAdmin) {
+    return children
+  } else {
+    return <Navigate to="/login" replace />
+  }
+}
+
+const TeacherLoginRoute = ({ children }) => {
+  if (!user.isAuthenticated) {
+    return children
+  } else {
+    return <Navigate to="/" replace />
+  }
+}
+
+const TeacherLayout = () => {
+  return (
+    <>
+      <TeacherNavbar />
+      <Outlet />
+    </>
+  )
+}
+
 const router = createBrowserRouter([
+  {
+    element: (
+      <TeacherAuthRoutes>
+        <TeacherLayout />
+      </TeacherAuthRoutes>
+    ),
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+    ],
+  },
+
+  {
+    element: (
+      <TeacherLoginRoute>
+        <TeacherLogin />
+      </TeacherLoginRoute>
+    ),
+    path: '/login',
+  },
+
   {
     element: (
       <AdminAuthRoutes>
@@ -71,75 +122,75 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: '/',
+        path: '/admin/dashboard',
         element: <Dashboard />,
       },
       {
-        path: '/teachers',
+        path: '/admin/teachers',
         element: <Teachers />,
       },
       {
-        path: '/teachers/:id',
+        path: '/admin/teachers/:id',
         element: <Teacher />,
       },
       {
-        path: '/classes',
+        path: '/admin/classes',
         element: <Classes />,
       },
       {
-        path: '/classes/:id',
+        path: '/admin/classes/:id',
         element: <Class />,
       },
       {
-        path: '/students',
+        path: '/admin/students',
         element: <Students />,
       },
       {
-        path: '/students/:id',
+        path: '/admin/students/:id',
         element: <Student />,
       },
       {
-        path: '/subjects',
+        path: '/admin/subjects',
         element: <Subjects />,
       },
       {
-        path: '/subjects/:classID',
+        path: '/admin/subjects/:classID',
         element: <ClassSubject />,
       },
       {
-        path: '/marks',
+        path: '/admin/marks',
         element: <Marks />,
       },
       {
-        path: '/marks/:classID',
+        path: '/admin/marks/:classID',
         element: <ClassMarks />,
       },
       {
-        path: '/years-terms-sequences',
+        path: '/admin/years-terms-sequences',
         element: <Years />,
       },
       {
-        path: '/statistics',
+        path: '/admin/statistics',
         element: <Statistics />,
       },
       {
-        path: '/statistics/:classID',
+        path: '/admin/statistics/:classID',
         element: <ClassStatistics />,
       },
       {
-        path: '/prints',
+        path: '/admin/prints',
         element: <Prints />,
       },
       {
-        path: '/departments',
+        path: '/admin/departments',
         element: <Departments />,
       },
       {
-        path: '/departments/:id',
+        path: '/admin/departments/:id',
         element: <Department />,
       },
       {
-        path: '/my-school',
+        path: '/admin/my-school',
         element: <School />,
       },
       {
@@ -147,11 +198,11 @@ const router = createBrowserRouter([
         element: <Profile />,
       },
       {
-        path: '/absences',
+        path: '/admin/absences',
         element: <Absences />,
       },
       {
-        path: '/absences/:classID',
+        path: 'admin/absences/:classID',
         element: <ClassAbsences />,
       },
     ],
