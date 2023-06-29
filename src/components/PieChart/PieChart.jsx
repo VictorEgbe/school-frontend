@@ -1,18 +1,22 @@
 import { Chart } from 'react-google-charts'
 
-const PieChart = () => {
-  const data = [
-    ['Department', 'Number of teachers'],
-    ['Mathematics', 5],
-    ['Economics', 3],
-    ['Biology', 4],
-    ['History', 6],
-    ['English Language/Literature', 7],
-    ['Chemistry', 7],
-  ]
+const PieChart = ({ departmentsInfo }) => {
+  const constructedData = [['Department', 'Number of teachers']]
+
+  let data
+
+  if (departmentsInfo.length < 1) {
+    data = constructedData
+  } else {
+    for (let i = 0; i < departmentsInfo.length; i++) {
+      let info = departmentsInfo[i]
+      constructedData.push([info.name, info.numberOfTeachers])
+    }
+    data = constructedData
+  }
 
   const options = {
-    title: 'PERCENTAGE OF EACH DEPARTMENT',
+    title: 'NUMBER OF TEACHER PER DEPARTMENT',
     is3D: true,
   }
 
