@@ -40,6 +40,7 @@ const isAuthenticated = JSON.parse(localStorage.getItem('auth'))?.token
   ? true
   : false
 
+// ADMIN ROUTES START
 const AdminAuthRoutes = ({ children }) => {
   if (isAuthenticated && user.isAdmin) {
     return children
@@ -55,8 +56,31 @@ const AdminLoginRoute = ({ children }) => {
     return <Navigate to="/admin/dashboard" replace />
   }
 }
+// ADMIN ROUTES ENDS
 
-const Layout = () => {
+// TEACHER ROUTES START
+const TeacherAuthRoutes = ({ children }) => {
+  if (isAuthenticated) {
+    if (user.isAdmin) {
+      return <Navigate to="/admin/dashboard" />
+    } else {
+      return children
+    }
+  } else {
+    return <Navigate to="/login" replace />
+  }
+}
+
+const TeacherLoginRoute = ({ children }) => {
+  if (!isAuthenticated) {
+    return children
+  } else {
+    return <Navigate to="/" replace />
+  }
+}
+// TEACHER ROUTES ENDS
+
+const AdminLayout = () => {
   return (
     <>
       <Navbar />
@@ -68,22 +92,6 @@ const Layout = () => {
       </div>
     </>
   )
-}
-
-const TeacherAuthRoutes = ({ children }) => {
-  if (isAuthenticated && !user.isAdmin) {
-    return children
-  } else {
-    return <Navigate to="/admin/login" replace />
-  }
-}
-
-const TeacherLoginRoute = ({ children }) => {
-  if (!isAuthenticated) {
-    return children
-  } else {
-    return <Navigate to="/" replace />
-  }
 }
 
 const TeacherLayout = () => {
@@ -122,7 +130,7 @@ const router = createBrowserRouter([
   {
     element: (
       <AdminAuthRoutes>
-        <Layout />
+        <AdminLayout />
       </AdminAuthRoutes>
     ),
     children: [
