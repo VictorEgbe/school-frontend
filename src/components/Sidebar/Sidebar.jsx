@@ -6,8 +6,8 @@ const Sidebar = () => {
   return (
     <aside className="sidebar">
       <div className="menu">
-        {data.map((item) => (
-          <NavLink to={item.to} className="link" key={item.id}>
+        {data.map((item, index) => (
+          <NavLink to={item.to} className="link" key={index}>
             <div className="menuItem">
               {item.icon}
               <span>{item.content}</span>

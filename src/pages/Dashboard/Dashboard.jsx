@@ -4,6 +4,7 @@ import Groups from '@mui/icons-material/Groups'
 import People from '@mui/icons-material/People'
 import Diversity3 from '@mui/icons-material/Diversity3'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
+import Class from '@mui/icons-material/Class'
 import BarChart from '../../components/BarChart/BarChart'
 import PieChart from '../../components/PieChart/PieChart'
 import { useQuery } from '@tanstack/react-query'
@@ -58,6 +59,11 @@ const Dashboard = () => {
               name="admins"
               value={data.admins}
               icon={<AdminPanelSettingsIcon sx={{ fontSize: '40px' }} />}
+            />
+            <Card
+              name="classes"
+              value={data.classes}
+              icon={<Class sx={{ fontSize: '40px' }} />}
             />
           </div>
           <div className="bottom">

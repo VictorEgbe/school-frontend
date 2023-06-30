@@ -19,7 +19,6 @@ import ClassSubject from './pages/class_subjects/ClassSubject'
 import Marks from './pages/marks/Marks'
 import Departments from './pages/departments/Departments'
 import Department from './pages/department/Department'
-import School from './pages/school/School'
 import Years from './pages/years/Years'
 import Statistics from './pages/statistics/Statistics'
 import Profile from './pages/profile/Profile'
@@ -29,6 +28,7 @@ import ClassAbsences from './pages/class_absences/ClassAbsences'
 import ClassMarks from './pages/class_marks/ClassMarks'
 import ClassStatistics from './pages/class_statistics/Statistics'
 import Prints from './pages/prints/Prints'
+import Admins from './pages/admins/Admins'
 
 const user = localStorage.getItem('user')
   ? JSON.parse(localStorage.getItem('user'))
@@ -144,16 +144,16 @@ const router = createBrowserRouter([
         element: <Department />,
       },
       {
-        path: '/my-school',
-        element: <School />,
-      },
-      {
         path: '/profile',
         element: <Profile />,
       },
       {
         path: '/absences',
         element: <Absences />,
+      },
+      {
+        path: '/admins',
+        element: <Admins />,
       },
       {
         path: 'admin/absences/:classID',

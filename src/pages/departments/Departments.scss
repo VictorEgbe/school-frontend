@@ -6,47 +6,59 @@ $base-green-color: rgb(4, 133, 4);
         padding: 20px 30px 30px 30px;
         display: flex;
         flex-direction: column;
-        gap: 30px;
+        gap: 20px;
 
         .create {
-            box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
-            -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
-            width: max-content;
-            padding: 10px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            background-color: white;
-            align-self: start;
-            color: $base-green-color;
+            justify-content: space-between;
 
-            &:hover {
-                background-color: $base-green-color;
+            h1 {
+                box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+                -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+                padding: 10px;
+                border-radius: 5px;
+                width: max-content;
+                text-transform: uppercase;
+                color: #616161;
+                font-weight: 500;
+                font-size: 20px;
+                letter-spacing: 3px;
+            }
+
+            .createBtn {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+                -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+                padding: 10px;
+                border-radius: 5px;
+                width: max-content;
+                cursor: pointer;
+                background-color: #009688;
                 color: white;
+                text-transform: uppercase;
             }
         }
 
 
         .departmentContainer {
-            color: $base-color;
             box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
             -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
-            padding: 20px;
+            padding: 10px;
             border-radius: 10px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 15px;
 
             .departmentName {
-                font-size: 25px;
+                font-size: 16px;
                 font-weight: 500;
                 text-transform: uppercase;
                 color: gray;
+                text-decoration: dashed;
             }
 
             .members {
@@ -69,7 +81,9 @@ $base-green-color: rgb(4, 133, 4);
                     span {
                         align-self: center;
                         font-weight: 500;
+                        font-size: 14px;
                         text-transform: uppercase;
+                        color: gray;
                     }
                 }
 
