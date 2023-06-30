@@ -8,19 +8,22 @@ import BarChart from '../../components/BarChart/BarChart'
 import PieChart from '../../components/PieChart/PieChart'
 import { useQuery } from '@tanstack/react-query'
 import { authCall } from '../../apiCalls/index'
+import Error from '../../components/Error/Error'
+import Spinner from '../../components/loadingSpinner/Spinner'
 
 const Dashboard = () => {
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['dashboard'],
     queryFn: () => authCall.get('others/dashboard').then((res) => res.data),
   })
 
   if (isLoading) {
-    return <h1>Loading...</h1>
+    return <Spinner />
   }
 
   if (isError) {
-    return <h1>{error}</h1>
+    const errorMsg = 'Oops, something went wrong!!! Try again Later.'
+    return <Error errorMsg={errorMsg} />
   }
 
   return (
