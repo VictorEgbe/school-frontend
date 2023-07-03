@@ -1,0 +1,94 @@
+$base-color: #0d084d;
+$base-green-color: rgb(4, 133, 4);
+
+.newDepartment {
+    // height: calc(100vh - 55px);
+    padding-top: 50px;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .container {
+        box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+        -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+        width: 650px;
+        height: 245px;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        p {
+            color: $base-color;
+            font-size: 25px;
+            text-transform: uppercase;
+            text-align: center;
+            font-weight: 500;
+            text-transform: uppercase;
+            word-spacing: 3px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            .formGroup {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                label {
+                    font-size: 16px;
+                    color: gray;
+                    text-transform: uppercase;
+                }
+
+                input {
+                    padding: 10px;
+                    outline: none;
+                    border-radius: 10px;
+                    border: none;
+                    color: gray;
+                    border: 1px solid lightgray;
+                    letter-spacing: 3px;
+                    font-size: 17px;
+                    text-transform: uppercase;
+
+                    &::placeholder {
+                        text-transform: uppercase;
+                        color: rgb(192, 190, 190);
+                    }
+
+                    &.errorStyle {
+                        outline: 1px solid red;
+                    }
+                }
+
+                span {
+                    color: red;
+                    text-transform: capitalize;
+                }
+            }
+
+            button[type='submit'] {
+                width: 120px;
+                padding: 10px;
+                border-radius: 2px;
+                cursor: pointer;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                background-color: #009688;
+
+                &:hover {
+                    background-color: #00796b;
+                }
+            }
+        }
+    }
+}

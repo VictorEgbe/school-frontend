@@ -75,12 +75,12 @@ const Login = () => {
                 disabled={isLoading}
               />
               {visible ? (
-                <VisibilityOutlined
+                <VisibilityOffOutlined
                   className="visible"
                   onClick={() => setVisible(false)}
                 />
               ) : (
-                <VisibilityOffOutlined
+                <VisibilityOutlined
                   className="visible"
                   onClick={() => setVisible(true)}
                 />

@@ -67,6 +67,12 @@ $base-green-color: rgb(4, 133, 4);
                 flex-wrap: wrap;
                 gap: 30px;
 
+                .noTeacher {
+                    color: lightgrey;
+                    padding-bottom: 10px;
+                    text-transform: uppercase;
+                }
+
                 .member {
                     display: flex;
                     flex-direction: column;

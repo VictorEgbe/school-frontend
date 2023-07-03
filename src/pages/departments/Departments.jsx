@@ -30,11 +30,11 @@ const Departments = () => {
     <div className="departments">
       <div className="mainContainer">
         <div className="create" title="Create New Department">
-          <h1>All departments in school</h1>
-          <div className="createBtn">
+          <h1>All departments</h1>
+          <Link to={'/departments/new-department'} className="createBtn link">
             <CreateIcon />
             <span>Create New Department</span>
-          </div>
+          </Link>
         </div>
         {departments.map((department, index) => (
           <div className="departmentContainer" key={index}>
@@ -46,17 +46,26 @@ const Departments = () => {
               <div className="departmentName">{department.name}</div>
             </Link>
             <div className="members">
-              {department.teachers.map((teacher, index) => (
-                <Link
-                  to={`/teachers/${teacher.id}`}
-                  className="member link"
-                  key={index}
-                  state={{ id: teacher.id }}
-                >
-                  <img src={teacher.image ? teacher.image : noAvatar} alt="" />
-                  <span>{teacher.fullName}</span>
-                </Link>
-              ))}
+              {department.teachers.length === 0 ? (
+                <p className="noTeacher">
+                  No Teacher in {department.name} Department yet
+                </p>
+              ) : (
+                department.teachers.map((teacher, index) => (
+                  <Link
+                    to={`/teachers/${teacher.id}`}
+                    className="member link"
+                    key={index}
+                    state={{ id: teacher.id }}
+                  >
+                    <img
+                      src={teacher.image ? teacher.image : noAvatar}
+                      alt=""
+                    />
+                    <span>{teacher.fullName}</span>
+                  </Link>
+                ))
+              )}
             </div>
           </div>
         ))}

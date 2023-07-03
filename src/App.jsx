@@ -29,6 +29,7 @@ import ClassMarks from './pages/class_marks/ClassMarks'
 import ClassStatistics from './pages/class_statistics/Statistics'
 import Prints from './pages/prints/Prints'
 import Admins from './pages/admins/Admins'
+import NewDepartment from './pages/newDepartment/NewDepartment'
 
 const user = localStorage.getItem('user')
   ? JSON.parse(localStorage.getItem('user'))
@@ -154,6 +155,10 @@ const router = createBrowserRouter([
       {
         path: '/admins',
         element: <Admins />,
+      },
+      {
+        path: '/departments/new-department',
+        element: <NewDepartment />,
       },
       {
         path: 'admin/absences/:classID',
