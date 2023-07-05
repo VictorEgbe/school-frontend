@@ -115,8 +115,15 @@ $base-color: #0d084d;
                             font-size: 20px;
                             color: $base-color;
                             text-transform: uppercase;
-                            align-self: center;
-                            margin-bottom: 10px;
+                            display: flex;
+                            flex-direction: column;
+                            text-align: center;
+
+                            p {
+                                font-weight: normal;
+                                font-size: 14px;
+                                color: gray;
+                            }
                         }
                     }
                 }

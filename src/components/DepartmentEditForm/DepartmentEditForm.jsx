@@ -1,8 +1,16 @@
 import './DepartmentEditForm.scss'
 
-const DepartmentEditForm = ({ DName, HODName, teachers, setEditMode }) => {
+const DepartmentEditForm = ({
+  DName,
+  HODName,
+  setHODName,
+  setDepartmentName,
+  teachers,
+  setEditMode,
+  handleEdit,
+}) => {
   return (
-    <form className="departmentEditForm">
+    <form onSubmit={handleEdit} className="departmentEditForm">
       <div className="name">
         <label>Department Name</label>
         <input
@@ -10,16 +18,19 @@ const DepartmentEditForm = ({ DName, HODName, teachers, setEditMode }) => {
           type="text"
           value={DName}
           placeholder="Department Name"
+          onChange={(e) => setDepartmentName(e.target.value)}
         />
       </div>
-      <div className="hod">
-        <label>Select HOD</label>
-        <select required>
-          {teachers.map((teacher) => (
-            <option key={teacher.id}>{teacher.name}</option>
-          ))}
-        </select>
-      </div>
+      {HODName && (
+        <div className="hod">
+          <label>Select HOD</label>
+          <select value={HODName} onChange={(e) => setHODName(e.target.value)}>
+            {teachers.map((teacher) => (
+              <option key={teacher.id}>{teacher.name}</option>
+            ))}
+          </select>
+        </div>
+      )}
       <div className="buttons">
         <button onClick={() => setEditMode(false)} type="button">
           Cancel
