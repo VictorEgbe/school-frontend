@@ -46,14 +46,16 @@ const Department = () => {
             {department.department.name} Department
           </h1>
           <div className="actions">
-            <button
-              onClick={() => setEditMode(true)}
-              className="edit"
-              title="Edit Department"
-            >
-              <BorderColorIcon />
-              <span>Edit Department</span>
-            </button>
+            {!editMode && (
+              <button
+                onClick={() => setEditMode(true)}
+                className="edit"
+                title="Edit Department"
+              >
+                <BorderColorIcon />
+                <span>Edit Department</span>
+              </button>
+            )}
             <button className="delete" title="Delete Department">
               <DeleteIcon />
               <span>Delete Department</span>
@@ -65,7 +67,14 @@ const Department = () => {
             <span className="noTeacher">No teacher in this department</span>
           ) : (
             <div className="members">
-              {editMode && <DepartmentEditForm />}
+              {editMode && (
+                <DepartmentEditForm
+                  HODName={department.department.HOD_name}
+                  teachers={department.teachers}
+                  DName={department.department.name}
+                  setEditMode={setEditMode}
+                />
+              )}
 
               <div className="departmentMembers">
                 {department.teachers.map((teacher) => (
