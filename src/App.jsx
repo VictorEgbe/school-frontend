@@ -141,7 +141,7 @@ const router = createBrowserRouter([
         element: <Departments />,
       },
       {
-        path: '/departments/:id',
+        path: '/departments/:departmentID',
         element: <Department />,
       },
       {
