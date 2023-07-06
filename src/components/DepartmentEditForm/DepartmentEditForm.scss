@@ -26,16 +26,31 @@
     }
 
     .name {
-        input {
+        div {
+            display: flex;
+            flex-direction: column;
             width: 65%;
-            padding: 8px;
-            border: none;
-            outline: none;
-            border: 1px solid lightgray;
-            border-radius: 5px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: gray;
+            gap: 3px;
+
+            input {
+                width: 100%;
+                padding: 8px;
+                border: none;
+                outline: none;
+                border: 1px solid lightgray;
+                border-radius: 5px;
+                letter-spacing: 3px;
+                color: gray;
+
+                &.classError {
+                    outline: 1px solid red;
+                }
+            }
+
+            span {
+                font-size: 12px;
+                color: red;
+            }
         }
     }
 
@@ -70,9 +85,14 @@
             cursor: pointer;
             border-radius: 5px;
             color: white;
+            width: 100px;
 
             &:first-child {
                 background-color: #bdbdbd;
+
+                &:disabled {
+                    cursor: not-allowed;
+                }
 
                 &:hover {
                     background-color: #616161;
@@ -81,6 +101,10 @@
 
             &:last-child {
                 background-color: #009688;
+
+                &:disabled {
+                    cursor: not-allowed;
+                }
 
                 &:hover {
                     background-color: #00796b;

@@ -62,7 +62,10 @@ const Departments = () => {
                       src={teacher.image ? teacher.image : noAvatar}
                       alt=""
                     />
-                    <span>{teacher.fullName}</span>
+                    <div className="div">
+                      <span>{teacher.fullName}</span>
+                      {teacher.isHOD && <span>(H.O.D)</span>}
+                    </div>
                   </Link>
                 ))
               )}

@@ -1,5 +1,5 @@
 import './Department.scss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useParams } from 'react-router-dom'
@@ -17,6 +17,7 @@ const Department = () => {
   const [departmentName, setDepartmentName] = useState('')
   const [HODName, setHODName] = useState('')
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const {
     data: department,
@@ -43,8 +44,9 @@ const Department = () => {
   })
 
   const {
-    isError: updateError,
+    isError: updateIsError,
     isLoading: updateLoading,
+    error: updateError,
     mutate,
   } = useMutation({
     mutationFn: (dataToUpdate) =>
@@ -61,12 +63,23 @@ const Department = () => {
     },
   })
 
+  const mutation = useMutation({
+    mutationFn: () =>
+      authCall.delete(`departments/delete_department/${departmentID}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['departments', departmentID])
+      navigate('/departments')
+    },
+  })
+
   if (isLoading) {
     return <Spinner />
   }
 
   if (isError) {
-    const errorMsg = error?.response.data.error
+    const errorMsg =
+      error?.response.data.error ||
+      'Something went wrong. Please reload the page.'
     return <Error errorMsg={errorMsg} />
   }
 
@@ -78,7 +91,7 @@ const Department = () => {
 
   const handleDelete = (e) => {
     e.preventDefault()
-    console.log('Delete Api')
+    mutation.mutate()
   }
 
   return (
@@ -94,6 +107,7 @@ const Department = () => {
                 onClick={() => setEditMode(true)}
                 className="edit"
                 title="Edit Department"
+                disabled={mutation.isLoading}
               >
                 <BorderColorIcon />
                 <span>Edit Department</span>
@@ -103,6 +117,7 @@ const Department = () => {
               onClick={handleDelete}
               className="delete"
               title="Delete Department"
+              disabled={updateLoading || mutation.isLoading}
             >
               <DeleteIcon />
               <span>Delete Department</span>
@@ -123,6 +138,9 @@ const Department = () => {
                   setDepartmentName={setDepartmentName}
                   setEditMode={setEditMode}
                   handleEdit={handleEdit}
+                  isLoading={updateLoading}
+                  isError={updateIsError}
+                  error={updateError}
                 />
               )}
 

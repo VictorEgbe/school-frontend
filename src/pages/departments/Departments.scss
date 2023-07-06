@@ -84,12 +84,15 @@ $base-green-color: rgb(4, 133, 4);
                         object-fit: cover;
                     }
 
-                    span {
+                    div {
                         align-self: center;
                         font-weight: 500;
                         font-size: 14px;
                         text-transform: uppercase;
                         color: gray;
+                        display: flex;
+                        align-items: center;
+                        gap: 3px;
                     }
                 }
 

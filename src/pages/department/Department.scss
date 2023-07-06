@@ -44,6 +44,10 @@ $base-color: #0d084d;
                     font-size: 18px;
                     font-weight: 500;
                     border: none;
+
+                    &:disabled {
+                        cursor: not-allowed;
+                    }
                 }
 
                 .edit {

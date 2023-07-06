@@ -55,12 +55,7 @@ $base-green-color: rgb(4, 133, 4);
                     border: 1px solid lightgray;
                     letter-spacing: 3px;
                     font-size: 17px;
-                    text-transform: uppercase;
-
-                    &::placeholder {
-                        text-transform: uppercase;
-                        color: rgb(192, 190, 190);
-                    }
+                    color: gray;
 
                     &.errorStyle {
                         outline: 1px solid red;
