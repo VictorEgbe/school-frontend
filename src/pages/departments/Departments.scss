@@ -39,6 +39,11 @@ $base-green-color: rgb(4, 133, 4);
                 background-color: #009688;
                 color: white;
                 text-transform: uppercase;
+
+                &:hover {
+                    background-color: white;
+                    color: #009688;
+                }
             }
         }
 

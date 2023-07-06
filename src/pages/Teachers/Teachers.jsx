@@ -1,33 +1,53 @@
 import { Link } from 'react-router-dom'
 import './Teachers.scss'
-import { teachers } from './data'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
+import { useQuery } from '@tanstack/react-query'
+import { authCall } from '../../apiCalls/index'
+import Avatar from '../../assets/avatar.png'
+import Spinner from '../../components/loadingSpinner/Spinner'
+import Error from '../../components/Error/Error'
 
 const Teachers = () => {
-  const newTeachers = [...teachers].reverse()
+  const query = useQuery({
+    queryKey: ['teachers'],
+    queryFn: () => authCall.get('teachers').then((res) => res.data),
+    retry: 2,
+  })
+
+  if (query.isLoading) {
+    return <Spinner />
+  }
+
+  if (query.isError) {
+    const errorMsg = 'Something went wrong. Please reload page.'
+    return <Error errorMsg={errorMsg} />
+  }
+
   return (
     <div className="teachers">
       <div className="teachersContainer">
-        <div className="action">
-          <div className="add" title="Add Teacher">
-            <AddCircleIcon />
-          </div>
-        </div>
-        <div className="allTeachers">
-          {newTeachers.map((teacher) => (
+        <section className="header">
+          <h1>Teaching Staff</h1>
+          <button title="Add Teacher">
+            <AddCircleIcon /> <span>Add a teacher</span>
+          </button>
+        </section>
+
+        <section className="allTeachers">
+          {query?.data?.map((teacher) => (
             <Link
-              to={`/admin/teachers/${teacher.id}`}
+              to={`/teachers/${teacher.id}`}
               className="teacherCard link"
               key={teacher.id}
             >
-              <img src={teacher.image} alt="" />
+              <img src={teacher.image ? teacher.image : Avatar} alt="" />
               <div className="name">
-                {teacher.firstName} {teacher.lastName}
+                {teacher.fullName} {teacher.isHOD && <span>(H.O.D)</span>}{' '}
               </div>
               <div className="teacherSubject">{teacher.subject}</div>
             </Link>
           ))}
-        </div>
+        </section>
       </div>
     </div>
   )

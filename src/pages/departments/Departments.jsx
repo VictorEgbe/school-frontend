@@ -1,6 +1,6 @@
 import './Departments.scss'
 import { Link } from 'react-router-dom'
-import CreateIcon from '@mui/icons-material/Create'
+import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { useQuery } from '@tanstack/react-query'
 import { authCall } from '../../apiCalls/index'
 import Spinner from '../../components/loadingSpinner/Spinner'
@@ -15,6 +15,7 @@ const Departments = () => {
   } = useQuery({
     queryKey: ['departments'],
     queryFn: () => authCall.get('departments').then((res) => res.data),
+    retry: 2,
   })
 
   if (isLoading) {
@@ -22,7 +23,7 @@ const Departments = () => {
   }
 
   if (isError) {
-    const errorMsg = 'Something went wrong'
+    const errorMsg = 'Something went wrong. Please reload page.'
     return <Error errorMsg={errorMsg} />
   }
 
@@ -32,7 +33,7 @@ const Departments = () => {
         <div className="create" title="Create New Department">
           <h1>All departments</h1>
           <Link to={'/departments/new-department'} className="createBtn link">
-            <CreateIcon />
+            <AddCircleIcon />
             <span>Create New Department</span>
           </Link>
         </div>
