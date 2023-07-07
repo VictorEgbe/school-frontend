@@ -1,87 +1,192 @@
 import './Teacher.scss'
-import { teacher } from './data'
-import BorderColorIcon from '@mui/icons-material/BorderColor'
 import DeleteIcon from '@mui/icons-material/Delete'
-import WomanIcon from '@mui/icons-material/Woman'
-import ElderlyWomanIcon from '@mui/icons-material/ElderlyWoman'
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
-import Diversity3 from '@mui/icons-material/Diversity3'
-import HomeIcon from '@mui/icons-material/Home'
-import Subject from '@mui/icons-material/Subject'
-import EmailIcon from '@mui/icons-material/Email'
-import PersonIcon from '@mui/icons-material/Person'
-import CheckIcon from '@mui/icons-material/Check'
-import ClearIcon from '@mui/icons-material/Clear'
-import { Link } from 'react-router-dom'
+import EditIcon from '@mui/icons-material/Edit'
 
 const Teacher = () => {
   return (
     <div className="teacher">
       <div className="mainTeacherContainer">
-        <div className="actions">
-          <div
-            className="edit"
-            title={`Edit ${teacher.firstName} ${teacher.lastName}`}
-          >
-            <BorderColorIcon />
-          </div>
-          <div
-            className="delete"
-            title={`Delete ${teacher.firstName} ${teacher.lastName}`}
-          >
-            <DeleteIcon />
-          </div>
-        </div>
-        <div className="teacherInfo">
-          <div className="avatar">
-            <img src={teacher.image} alt="" />
-          </div>
-          <div className="others">
-            <div className="othersContainer">
-              <div className="teacherName">
-                {teacher.firstName} {teacher.lastName}
+        <section className="top">
+          <div className="left">
+            <div className="topLeft">
+              <h1>{"Teacher's"} Information</h1>
+
+              <div>
+                <button title="Edit Teacher Info">
+                  <EditIcon sx={{ fontSize: '16px' }} /> Edit
+                </button>
+                <button title="Delete Teacher">
+                  <DeleteIcon sx={{ fontSize: '16px' }} /> Delete
+                </button>
               </div>
-              <div className="item">
-                <ElderlyWomanIcon />
-                <span>{teacher.age} year old</span>
+            </div>
+            <div className="bottomLeft">
+              <div className="imageContainer">
+                <img
+                  src="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=600"
+                  alt=""
+                />
               </div>
-              <div className="item">
-                <LocalPhoneIcon />
-                <span>{teacher.phone}</span>
-              </div>
-              <div className="item">
-                <WomanIcon />
-                <span>{teacher.gender}</span>
-              </div>
-              <div className="item">
-                <Diversity3 />
-                <Link className="link" to={`/admin/departments/mathematics`}>
-                  {teacher.department}
-                </Link>
-              </div>
-              <div className="item">
-                <Subject />
-                <span>{teacher.subject}</span>
-              </div>
-              <div className="item">
-                <HomeIcon />
-                <span>{teacher.address}</span>
-              </div>
-              <div className="item">
-                <EmailIcon />
-                <span>{teacher.email}</span>
-              </div>
-              <div className="item">
-                <PersonIcon />
-                <span>{teacher.username}</span>
-              </div>
-              <div className="item">
-                {teacher.is_hod === 'No' ? <ClearIcon /> : <CheckIcon />}
-                <span>Head of Department: {teacher.is_hod}</span>
+              <div className="otherInfos">
+                <h1>Helen McMoli Enoh</h1>
+
+                <div className="others">
+                  <p className="age">Age: 26 years old</p>
+                  <p className="department">Depart: Mathematics</p>
+                  <p className="gender">Gender: Male</p>
+                  <p className="gender">H.O.D: NO</p>
+                  <p className="gender">Married: NO</p>
+                  <p className="address">Address: Yaounde</p>
+                  <p className="DOB">D.O.B: 26/march/2023</p>
+                  <p className="email">Email: ki@sih.vu</p>
+                  <p className="tel">Phone: 675725140</p>
+                  <p className="username">Username: JW</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+          <div className="right">
+            <div className="rightContainer">
+              <h1>
+                Classes assigned to <span>Helen McMoli Enoh</span>{' '}
+              </h1>
+              <table>
+                <tr>
+                  <th>Class</th>
+                  <th>Subject</th>
+                </tr>
+
+                <tbody>
+                  <tr>
+                    <td>Form 1</td>
+                    <td>History</td>
+                  </tr>
+                  <tr>
+                    <td>Form 2</td>
+                    <td>History</td>
+                  </tr>
+                  <tr>
+                    <td>Form 3</td>
+                    <td>History</td>
+                  </tr>
+                  <tr>
+                    <td>Form 4</td>
+                    <td>History</td>
+                  </tr>
+                  <tr>
+                    <td>Form 5</td>
+                    <td>History</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        <section className="bottom">
+          <h1>Teachers of the same department (Similar Teachers)</h1>
+          <div className="similarContainer">
+            <div className="similarCard">
+              <img
+                src="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt=""
+              />
+
+              <div>
+                John Doe <span>(H.O.D)</span>
+              </div>
+            </div>
+            <div className="similarCard">
+              <img
+                src="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt=""
+              />
+
+              <div>
+                John Doe <span>(H.O.D)</span>
+              </div>
+            </div>
+            <div className="similarCard">
+              <img
+                src="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt=""
+              />
+
+              <div>
+                John Doe <span>(H.O.D)</span>
+              </div>
+            </div>
+            <div className="similarCard">
+              <img
+                src="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt=""
+              />
+
+              <div>
+                John Doe <span>(H.O.D)</span>
+              </div>
+            </div>
+            <div className="similarCard">
+              <img
+                src="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt=""
+              />
+
+              <div>
+                John Doe <span>(H.O.D)</span>
+              </div>
+            </div>
+            <div className="similarCard">
+              <img
+                src="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt=""
+              />
+
+              <div>
+                John Doe <span>(H.O.D)</span>
+              </div>
+            </div>
+            <div className="similarCard">
+              <img
+                src="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt=""
+              />
+
+              <div>
+                John Doe <span>(H.O.D)</span>
+              </div>
+            </div>
+            <div className="similarCard">
+              <img
+                src="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt=""
+              />
+
+              <div>
+                John Doe <span>(H.O.D)</span>
+              </div>
+            </div>
+            <div className="similarCard">
+              <img
+                src="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt=""
+              />
+
+              <div>
+                John Doe <span>(H.O.D)</span>
+              </div>
+            </div>
+            <div className="similarCard">
+              <img
+                src="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt=""
+              />
+
+              <div>
+                John Doe <span>(H.O.D)</span>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   )

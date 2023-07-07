@@ -6,102 +6,228 @@ $base-color: #0d084d;
         padding: 20px 30px 20px 30px;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 70px;
 
-        .actions {
+        .top {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            gap: 20px;
 
-            .edit,
-            .delete {
-                height: 50px;
-                width: 50px;
-                padding: 10px;
-                border-radius: 50%;
-                cursor: pointer;
+            .left,
+            .right {
                 box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
                 -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                padding: 10px 20px;
+                border-radius: 10px;
             }
 
-            .edit {
-                color: $base-color;
-                background-color: white;
+            .left {
+                flex: 4;
 
-                &:hover {
-                    background-color: $base-color;
-                    color: white;
+                .topLeft {
+                    margin-bottom: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
 
+                    h1 {
+                        color: gray;
+                        font-size: 16px;
+                        text-transform: uppercase;
+                    }
+
+                    div {
+                        display: flex;
+                        align-items: center;
+                        gap: 20px;
+
+                        button {
+                            cursor: pointer;
+                            padding: 7px;
+                            border: none;
+                            color: white;
+                            border-radius: 5px;
+                            font-weight: 500;
+                            display: flex;
+                            align-items: center;
+                            gap: 3px;
+                            text-transform: uppercase;
+
+                            &:first-child {
+
+                                background-color: #009688;
+                            }
+
+
+                            &:last-child {
+                                background-color: red;
+                            }
+                        }
+
+                    }
+
+
+                }
+
+                .bottomLeft {
+                    display: flex;
+                    gap: 20px;
+
+                    .imageContainer {
+                        flex: 1.5;
+
+                        img {
+                            width: 100%;
+                            height: 250px;
+                            object-fit: cover;
+                            border-radius: 10px;
+                        }
+                    }
+
+                    .otherInfos {
+                        flex: 3;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 20px;
+
+
+                        h1 {
+                            font-size: 30px;
+                            color: $base-color;
+                            word-break: 5px;
+                            font-weight: 500px;
+                        }
+
+
+                        .others {
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 15px;
+
+                            p {
+                                width: 45%;
+                                font-size: 20px;
+                                color: gray;
+                            }
+                        }
+                    }
                 }
             }
 
-            .delete {
-                color: red;
-                background-color: white;
+            .right {
+                flex: 2;
 
-                &:hover {
-                    background-color: red;
-                    color: white;
+                .rightContainer {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
 
+                    h1 {
+                        font-size: 18px;
+                        color: gray;
+                        margin-bottom: 10px;
+
+                        span {
+                            color: $base-color;
+                        }
+                    }
+
+                    table {
+                        text-align: center;
+                        border-collapse: collapse;
+
+                        th {
+                            background-color: $base-color;
+                            color: white;
+                            text-transform: uppercase;
+                            font-weight: 500;
+                            padding: 5px;
+
+                            &:first-child {
+                                border-top-left-radius: 10px;
+                            }
+
+                            &:last-child {
+                                border-top-right-radius: 10px;
+                            }
+                        }
+
+                        tbody {
+
+                            tr {
+                                text-transform: uppercase;
+                                font-weight: 500;
+
+                                &:nth-child(even) {
+                                    background-color: #f5f5f5;
+                                }
+
+                                td {
+                                    padding: 5px 0px;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
 
-
-        .teacherInfo {
-            display: flex;
-            gap: 30px;
-
-            .avatar,
-            .others {
-                flex: 1;
+        .bottom {
+            h1 {
                 box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
                 -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
-                overflow: hidden;
+                padding: 10px;
+                text-transform: uppercase;
+                color: gray;
                 border-radius: 10px;
-                height: 550px;
-                max-height: 555px;
+                font-size: 25px;
+                margin-bottom: 20px;
+                text-align: center;
             }
 
-            .avatar {
-                flex: 1.5;
+            .similarContainer {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 30px;
 
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-            }
-
-            .others {
-
-                .othersContainer {
-                    padding: 30px 50px;
+                .similarCard {
+                    width: 211px;
+                    height: 200px;
                     display: flex;
                     flex-direction: column;
-                    gap: 20px;
+                    box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+                    -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+                    border-radius: 10px;
+                    overflow: hidden;
+                    cursor: pointer;
+                    transition: all 1s ease;
 
-                    .teacherName {
-                        font-size: 35px;
-                        color: gray;
-                        align-self: center;
-                        text-transform: uppercase;
+                    &:hover {
+                        transform: scale(1.1);
                     }
 
-                    .item {
-                        font-size: 25px;
+                    img {
+                        width: 100%;
+                        height: 80%;
+                        object-fit: cover;
+                    }
+
+                    div {
+                        width: 100%;
+                        height: 20%;
                         display: flex;
                         align-items: center;
-                        gap: 30px;
+                        justify-content: center;
                         color: $base-color;
                         font-weight: 500;
+                        text-transform: uppercase;
+
+                        span {
+                            margin-left: 5px;
+                            font-size: 12px;
+                        }
                     }
                 }
             }
-
         }
     }
 }

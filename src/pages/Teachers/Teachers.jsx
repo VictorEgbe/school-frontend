@@ -28,9 +28,13 @@ const Teachers = () => {
       <div className="teachersContainer">
         <section className="header">
           <h1>Teaching Staff</h1>
-          <button title="Add Teacher">
+          <Link
+            className="button link"
+            to={'/teachers/create/new-teacher'}
+            title="Add Teacher"
+          >
             <AddCircleIcon /> <span>Add a teacher</span>
-          </button>
+          </Link>
         </section>
 
         <section className="allTeachers">
@@ -44,7 +48,7 @@ const Teachers = () => {
               <div className="name">
                 {teacher.fullName} {teacher.isHOD && <span>(H.O.D)</span>}{' '}
               </div>
-              <div className="teacherSubject">{teacher.subject}</div>
+              <div className="teacherSubject">{teacher.department}</div>
             </Link>
           ))}
         </section>

@@ -32,7 +32,10 @@ const Departments = () => {
       <div className="mainContainer">
         <div className="create" title="Create New Department">
           <h1>All departments</h1>
-          <Link to={'/departments/new-department'} className="createBtn link">
+          <Link
+            to={'/departments/create/new-department'}
+            className="createBtn link"
+          >
             <AddCircleIcon />
             <span>Create New Department</span>
           </Link>

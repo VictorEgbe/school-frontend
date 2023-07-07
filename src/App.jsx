@@ -30,6 +30,7 @@ import ClassStatistics from './pages/class_statistics/Statistics'
 import Prints from './pages/prints/Prints'
 import Admins from './pages/admins/Admins'
 import NewDepartment from './pages/newDepartment/NewDepartment'
+import NewTeacher from './pages/newTeacher/NewTeacher'
 
 const user = localStorage.getItem('user')
   ? JSON.parse(localStorage.getItem('user'))
@@ -87,6 +88,10 @@ const router = createBrowserRouter([
       {
         path: '/teachers/:id',
         element: <Teacher />,
+      },
+      {
+        path: '/teachers/create/new-teacher',
+        element: <NewTeacher />,
       },
       {
         path: '/classes',
@@ -157,7 +162,7 @@ const router = createBrowserRouter([
         element: <Admins />,
       },
       {
-        path: '/departments/new-department',
+        path: '/departments/create/new-department',
         element: <NewDepartment />,
       },
       {
