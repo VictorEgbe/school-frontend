@@ -31,6 +31,7 @@ import Prints from './pages/prints/Prints'
 import Admins from './pages/admins/Admins'
 import NewDepartment from './pages/newDepartment/NewDepartment'
 import NewTeacher from './pages/newTeacher/NewTeacher'
+import EditTeacher from './pages/editTeacher/EditTeacher'
 
 const user = localStorage.getItem('user')
   ? JSON.parse(localStorage.getItem('user'))
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
       {
         path: '/teachers/create/new-teacher',
         element: <NewTeacher />,
+      },
+      {
+        path: '/teachers/update/:teacherID',
+        element: <EditTeacher />,
       },
       {
         path: '/classes',

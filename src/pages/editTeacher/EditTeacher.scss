@@ -1,0 +1,119 @@
+$base-color: #0d084d;
+
+.editTeacher {
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 30px;
+
+        h1 {
+            box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+            -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: rgb(206, 203, 203);
+            font-size: 20px;
+        }
+
+        form {
+            display: flex;
+            gap: 30px;
+            box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+            -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+            padding: 20px 0px 30px 0px;
+            border-radius: 10px;
+
+            .left {
+                flex: 2;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                gap: 20px;
+                font-size: 18px;
+                color: gray;
+
+                img {
+                    width: 200px;
+                    aspect-ratio: 1/1;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+
+                .folder {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    cursor: pointer;
+                }
+            }
+
+            .right {
+                flex: 8;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 30px;
+
+                .formGroup {
+                    width: 45%;
+                    display: flex;
+                    flex-direction: column;
+
+                    label {
+                        font-size: 14px;
+                        color: gray;
+                        text-transform: uppercase;
+                    }
+
+                    input,
+                    select {
+                        padding: 10px;
+                        background-color: transparent;
+                        border: none;
+                        border-bottom: 2px solid gray;
+                        letter-spacing: 3px;
+                        font-weight: 500;
+                        font-size: 16px;
+                        outline: none;
+                    }
+
+                    input {
+                        &::placeholder {
+                            color: lightgray;
+                        }
+
+                    }
+
+
+                }
+
+                .button {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+
+                    button {
+                        width: 20%;
+                        border: none;
+                        color: white;
+                        background-color: teal;
+                        padding: 10px;
+                        font-size: 18px;
+                        font-weight: 500;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        text-transform: uppercase;
+                        gap: 10px;
+                        cursor: pointer;
+                        border-radius: 5px;
+                    }
+                }
+            }
+        }
+    }
+}

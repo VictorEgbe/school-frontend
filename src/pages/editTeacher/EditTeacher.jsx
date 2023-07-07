@@ -1,16 +1,16 @@
-import './NewTeacher.scss'
-import noImage from '../../assets/noImage.webp'
+import './EditTeacher.scss'
+import Avatar from '../../assets/avatar.png'
 import Folder from '@mui/icons-material/Folder'
 import { Send } from '@mui/icons-material'
 import { userInput } from './data'
 import { useState } from 'react'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { authCall } from '../../apiCalls'
-import { useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
+import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query'
+import { authCall } from '../../apiCalls/index'
 import Error from '../../components/Error/Error'
 import Spinner from '../../components/loadingSpinner/Spinner'
 
-const NewTeacher = () => {
+const EditTeacher = () => {
   const [image, setImage] = useState(null)
   const [gender, setGender] = useState('Male')
   const [inputInfo, setInputInfo] = useState({
@@ -25,21 +25,31 @@ const NewTeacher = () => {
     password2: '',
   })
 
-  const [department, setDepartment] = useState({})
+  const { teacherID } = useParams()
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
+  const [department, setDepartment] = useState({})
 
   const query = useQuery({
-    queryKey: ['teacherDepartments'],
-    queryFn: () => authCall.get('departments').then((res) => res.data),
+    queryKey: ['teachers', teacherID],
+    queryFn: () =>
+      authCall.get(`get_teacher/${teacherID}`).then((res) => {
+        // Extract information here and set it (useState)
+        return res.data
+      }),
     retry: 2,
   })
 
   const mutation = useMutation({
     mutationFn: (apiData) =>
       authCall
-        .post(`create_teacher/${department.id}`, JSON.stringify(apiData))
+        .put(
+          `update_teacher/${teacherID}/${department.id}`,
+          JSON.stringify(apiData)
+        )
         .then((res) => res.data),
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['teachers', teacherID] })
       navigate(`/teachers/${data.id}`)
     },
   })
@@ -65,12 +75,12 @@ const NewTeacher = () => {
   }
 
   return (
-    <div className="newTeacher">
+    <div className="editTeacher">
       <div className="container">
-        <h1>Add A New Teacher</h1>
+        <h1>Edit {"Teacher's"} information</h1>
         <form onSubmit={handleSubmit}>
           <div className="left">
-            <img src={image ? URL.createObjectURL(image) : noImage} alt="" />
+            <img src={image ? URL.createObjectURL(image) : Avatar} alt="" />
 
             <div>
               <label className="folder" htmlFor="image">
@@ -125,4 +135,4 @@ const NewTeacher = () => {
   )
 }
 
-export default NewTeacher
+export default EditTeacher
