@@ -1,8 +1,11 @@
 import './Teacher.scss'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
+import { Link, useParams } from 'react-router-dom'
 
 const Teacher = () => {
+  const { teacherID } = useParams()
+
   return (
     <div className="teacher">
       <div className="mainTeacherContainer">
@@ -12,9 +15,13 @@ const Teacher = () => {
               <h1>{"Teacher's"} Information</h1>
 
               <div>
-                <button title="Edit Teacher Info">
+                <Link
+                  className="edit link"
+                  to={`/teachers/update/${teacherID}`}
+                  title="Edit Teacher Info"
+                >
                   <EditIcon sx={{ fontSize: '16px' }} /> Edit
-                </button>
+                </Link>
                 <button title="Delete Teacher">
                   <DeleteIcon sx={{ fontSize: '16px' }} /> Delete
                 </button>

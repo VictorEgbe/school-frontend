@@ -33,7 +33,7 @@ const EditTeacher = () => {
   const query = useQuery({
     queryKey: ['teachers', teacherID],
     queryFn: () =>
-      authCall.get(`get_teacher/${teacherID}`).then((res) => {
+      authCall.get(`teachers/get_teacher/${teacherID}`).then((res) => {
         // Extract information here and set it (useState)
         return res.data
       }),
