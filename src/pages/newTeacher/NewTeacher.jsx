@@ -36,7 +36,6 @@ const NewTeacher = () => {
         return res.data
       }),
     retry: 2,
-    enabled: false,
   })
 
   const mutation = useMutation({
