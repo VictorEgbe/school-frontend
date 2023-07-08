@@ -15,7 +15,6 @@ const Departments = () => {
   } = useQuery({
     queryKey: ['departments'],
     queryFn: () => authCall.get('departments').then((res) => res.data),
-    retry: 2,
   })
 
   if (isLoading) {

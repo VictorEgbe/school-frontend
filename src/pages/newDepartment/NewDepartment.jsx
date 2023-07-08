@@ -1,5 +1,4 @@
 import './NewDepartment.scss'
-import SendIcon from '@mui/icons-material/Send'
 import { useEffect, useRef } from 'react'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
@@ -17,7 +16,9 @@ const NewDepartment = () => {
         .post('departments/create_department', JSON.stringify({ name }))
         .then((res) => res.data),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['departments'] })
+      queryClient.refetchQueries({ queryKey: ['departments'] })
+      queryClient.refetchQueries({ queryKey: ['dashboard'] })
+      queryClient.refetchQueries({ queryKey: ['dashboard', data.id] })
       navigate(`/departments/${data.id}`)
     },
   })
@@ -50,9 +51,9 @@ const NewDepartment = () => {
 
           <button type="submit" disabled={isLoading}>
             {isLoading ? (
-              <CircularProgress size={25} color="inherit" />
+              <CircularProgress size={16} color="inherit" />
             ) : (
-              <SendIcon />
+              'Create'
             )}
           </button>
         </form>

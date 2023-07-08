@@ -57,8 +57,13 @@ const Department = () => {
         )
         .then((res) => res.data),
     onSuccess: (data) => {
-      // queryClient.invalidateQueries(['departments', departmentID])
+      queryClient.invalidateQueries(['departments', departmentID])
       queryClient.setQueryData(['departments', departmentID], data)
+      queryClient.refetchQueries({ queryKey: ['departments'] })
+      queryClient.refetchQueries({ queryKey: ['departments', departmentID] })
+      queryClient.refetchQueries({ queryKey: ['dashboard'] })
+      queryClient.refetchQueries({ queryKey: ['teachers'] })
+      setDepartmentName(data.department.name)
       setEditMode(false)
     },
   })
@@ -67,7 +72,8 @@ const Department = () => {
     mutationFn: () =>
       authCall.delete(`departments/delete_department/${departmentID}`),
     onSuccess: () => {
-      queryClient.invalidateQueries(['departments', departmentID])
+      queryClient.invalidateQueries(['departments'])
+      queryClient.refetchQueries({ queryKey: ['departments'] })
       navigate('/departments')
     },
   })

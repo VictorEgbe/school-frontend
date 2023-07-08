@@ -3,12 +3,13 @@ import noImage from '../../assets/noImage.webp'
 import Folder from '@mui/icons-material/Folder'
 import { userInput } from './data'
 import { useState } from 'react'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { authCall } from '../../apiCalls'
 import { useNavigate } from 'react-router-dom'
 import Error from '../../components/Error/Error'
 import Spinner from '../../components/loadingSpinner/Spinner'
 import CircularProgress from '@mui/material/CircularProgress'
+import { useEffect } from 'react'
 
 const NewTeacher = () => {
   const [image, setImage] = useState(null)
@@ -25,20 +26,19 @@ const NewTeacher = () => {
     password2: '',
   })
 
-  const [departmentID, setDepartmentID] = useState(null)
+  const [departmentID, setDepartmentID] = useState(0)
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   const query = useQuery({
     queryKey: ['departmentsIDsAndNames'],
     queryFn: () =>
-      authCall.get('others/get_departments_ids_and_names').then((res) => {
-        setDepartmentID(res.data[0].id)
-        return res.data
-      }),
-    retry: 2,
+      authCall
+        .get('others/get_departments_ids_and_names')
+        .then((res) => res.data),
   })
 
-  const mutation = useMutation({
+  const { isError, error, mutate, isLoading } = useMutation({
     mutationFn: (apiData) =>
       authCall
         .post(`teachers/create_teacher/${departmentID}`, apiData, {
@@ -46,9 +46,17 @@ const NewTeacher = () => {
         })
         .then((res) => res.data),
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['teachers'] })
+      queryClient.refetchQueries({ queryKey: ['teachers'] })
       navigate(`/teachers/${data.id}`)
     },
   })
+
+  useEffect(() => {
+    if (query.data) {
+      setDepartmentID(query.data[0].id)
+    }
+  }, [query.data])
 
   const handleChange = (e) => {
     setInputInfo({ ...inputInfo, [e.target.name]: e.target.value })
@@ -70,7 +78,7 @@ const NewTeacher = () => {
     formData.append('date_of_birth', inputInfo.date_of_birth)
     formData.append('password', inputInfo.password)
     formData.append('password2', inputInfo.password2)
-    mutation.mutate(formData)
+    mutate(formData)
   }
 
   if (query.isLoading) {
@@ -102,6 +110,11 @@ const NewTeacher = () => {
                 onChange={(e) => setImage(e.target.files[0])}
               />
             </div>
+            {image && (
+              <button onClick={() => setImage(null)} type="button">
+                Clear image
+              </button>
+            )}
           </div>
           <div className="right">
             {userInput.map((input, index) => (
@@ -114,8 +127,35 @@ const NewTeacher = () => {
                   placeholder={input.placeholder}
                   onChange={handleChange}
                   name={input.id}
-                  disabled={mutation.isLoading}
+                  disabled={isLoading}
+                  className={
+                    !isError
+                      ? ''
+                      : error.response.data?.email && input.id === 'email'
+                      ? 'errorMsg'
+                      : error.response.data?.username && input.id === 'username'
+                      ? 'errorMsg'
+                      : error.response.data?.phone && input.id === 'phone'
+                      ? 'errorMsg'
+                      : error.response.data?.password2 &&
+                        input.id === 'password2'
+                      ? 'errorMsg'
+                      : ''
+                  }
                 />
+                {error?.response.data?.email && input.id === 'email' && (
+                  <span>{error.response.data?.email[0]}</span>
+                )}
+                {error?.response.data?.phone && input.id === 'phone' && (
+                  <span>{error.response.data?.phone[0]}</span>
+                )}
+                {error?.response.data?.password2 &&
+                  input.id === 'password2' && (
+                    <span>{error.response.data?.password2[0]}</span>
+                  )}
+                {error?.response.data?.username && input.id === 'username' && (
+                  <span>{error.response.data?.username[0]}</span>
+                )}
               </div>
             ))}
 
@@ -125,7 +165,7 @@ const NewTeacher = () => {
                 required
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
-                disabled={mutation.isLoading}
+                disabled={isLoading}
               >
                 <option>Male</option>
                 <option>Female</option>
@@ -138,7 +178,7 @@ const NewTeacher = () => {
                 required
                 value={departmentID}
                 onChange={(e) => setDepartmentID(e.target.value)}
-                disabled={mutation.isLoading}
+                disabled={isLoading}
               >
                 {query.data.map((depart) => (
                   <option value={depart.id} key={depart.id}>
@@ -149,11 +189,11 @@ const NewTeacher = () => {
             </div>
 
             <div className="button">
-              <button type="submit" disabled={mutation.isLoading}>
-                {mutation.isLoading ? (
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? (
                   <CircularProgress size={22} color="inherit" />
                 ) : (
-                  'Create teacher'
+                  'Create'
                 )}
               </button>
             </div>

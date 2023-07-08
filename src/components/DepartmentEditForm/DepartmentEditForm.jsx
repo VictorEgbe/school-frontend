@@ -25,7 +25,7 @@ const DepartmentEditForm = ({
             placeholder="e.g Economics"
             onChange={(e) => setDepartmentName(e.target.value)}
             disabled={isLoading}
-            className={isError && 'classError'}
+            className={isError ? 'classError' : undefined}
           />
           {isError && <span>{error.response.data?.name[0]}</span>}
         </div>

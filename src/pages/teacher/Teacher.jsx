@@ -51,10 +51,12 @@ const Teacher = () => {
                 Classes assigned to <span>Helen McMoli Enoh</span>{' '}
               </h1>
               <table>
-                <tr>
-                  <th>Class</th>
-                  <th>Subject</th>
-                </tr>
+                <thead>
+                  <tr>
+                    <th>Class</th>
+                    <th>Subject</th>
+                  </tr>
+                </thead>
 
                 <tbody>
                   <tr>

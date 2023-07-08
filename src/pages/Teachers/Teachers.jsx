@@ -11,7 +11,6 @@ const Teachers = () => {
   const query = useQuery({
     queryKey: ['teachers'],
     queryFn: () => authCall.get('teachers').then((res) => res.data),
-    retry: 2,
   })
 
   if (query.isLoading) {

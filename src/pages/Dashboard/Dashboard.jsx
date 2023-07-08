@@ -16,7 +16,6 @@ const Dashboard = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['dashboard'],
     queryFn: () => authCall.get('others/dashboard').then((res) => res.data),
-    retry: 2,
   })
 
   if (isLoading) {
