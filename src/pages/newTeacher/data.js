@@ -43,7 +43,7 @@ export const userInput = [
   {
     id: 'date_of_birth',
     type: 'date',
-    label: 'Date of',
+    label: 'Date of Birth',
     placeholder: 'e.g select DOB',
   },
 
