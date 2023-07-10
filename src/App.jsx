@@ -32,7 +32,6 @@ import Admins from './pages/admins/Admins'
 import NewDepartment from './pages/newDepartment/NewDepartment'
 import NewTeacher from './pages/newTeacher/NewTeacher'
 import EditTeacher from './pages/editTeacher/EditTeacher'
-import EditDepartment from './pages/editDepartment/EditDepartment'
 
 const user = localStorage.getItem('user')
   ? JSON.parse(localStorage.getItem('user'))
@@ -150,10 +149,6 @@ const router = createBrowserRouter([
       {
         path: '/departments',
         element: <Departments />,
-      },
-      {
-        path: '/departments/update/:departmentID',
-        element: <EditDepartment />,
       },
       {
         path: '/departments/:departmentID',

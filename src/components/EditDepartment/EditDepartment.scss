@@ -1,0 +1,115 @@
+.updateDepartment {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    min-height: 100%;
+    backdrop-filter: blur(2px);
+
+    .wrapper {
+        background-color: white;
+        width: 45%;
+        margin: 10px;
+        padding: 30px;
+        border-radius: 10px;
+        margin-left: 280px;
+        margin-top: 80px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        h1 {
+            color: gray;
+            text-align: center;
+            font-size: 16px;
+            text-transform: uppercase;
+            word-spacing: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .input {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+
+                p {
+                    color: red;
+                    font-size: 13px;
+                    font-weight: 400;
+                    margin-top: 3px;
+                }
+
+                label {
+                    text-transform: uppercase;
+                    color: lightgray;
+                    font-size: 17px;
+                    margin-bottom: 5px;
+                }
+
+                input,
+                select {
+                    padding: 10px;
+                    border: none;
+                    outline: none;
+                    border: 1px solid lightgray;
+                    background-color: transparent;
+                    font-size: 16px;
+                    letter-spacing: 5px;
+                    width: 100%;
+                    font-weight: 500;
+                    border-radius: 10px;
+
+                    &.nameError {
+                        border: 1px solid red;
+                    }
+                }
+
+                option {
+                    background-color: transparent;
+                }
+            }
+
+            .formActions {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-top: 20px;
+
+                button {
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    border: none;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                    height: 40px;
+                    width: 100px;
+                    color: white;
+                    cursor: pointer;
+
+                    &:disabled {
+                        cursor: not-allowed;
+                    }
+
+                    &:first-child {
+                        background-color: #424242;
+
+                        &:hover {
+                            background-color: #757575;
+                        }
+                    }
+
+                    &:last-child {
+                        background-color: #00695c;
+
+                        &:hover {
+                            background-color: #00897b;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

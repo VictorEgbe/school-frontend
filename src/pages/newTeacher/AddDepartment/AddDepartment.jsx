@@ -1,25 +1,23 @@
-import './NewDepartment.scss'
+import './AddDepartment.scss'
 import { useEffect, useRef } from 'react'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
-import { authCall } from '../../apiCalls/index'
-import { useNavigate } from 'react-router-dom'
+import { authCall } from '../../../apiCalls/index'
 
-const NewDepartment = () => {
+const AddDepartment = ({ setOpen }) => {
   const departmentNameRef = useRef()
   const queryClient = useQueryClient()
-  const navigate = useNavigate()
 
   const { isLoading, mutate, isError, error } = useMutation({
     mutationFn: (name) =>
       authCall
         .post('departments/create_department', JSON.stringify({ name }))
         .then((res) => res.data),
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.refetchQueries({ queryKey: ['departments'] })
       queryClient.refetchQueries({ queryKey: ['dashboard'] })
-      queryClient.refetchQueries({ queryKey: ['dashboard', data.id] })
-      navigate(`/departments/${data.id}`)
+      queryClient.refetchQueries({ queryKey: ['departmentsIDsAndNames'] })
+      setOpen(false)
     },
   })
 
@@ -31,9 +29,9 @@ const NewDepartment = () => {
   }
 
   return (
-    <div className="newDepartment">
-      <div className="container">
-        <h1>Create New Department</h1>
+    <div className="addDepartment">
+      <div className="wrapper">
+        <h1>Add Department</h1>
         <form onSubmit={handleSubmit}>
           <div className="formGroup">
             <label htmlFor="departmentName">Department Name</label>
@@ -49,17 +47,30 @@ const NewDepartment = () => {
             {isError && <span>{error?.response?.data?.name[0]}</span>}
           </div>
 
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? (
-              <CircularProgress size={16} color="inherit" />
-            ) : (
-              'Create'
-            )}
-          </button>
+          <div className="buttons">
+            <button
+              onClick={() => setOpen(false)}
+              type="button"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <CircularProgress size={16} color="inherit" />
+              ) : (
+                'Cancel'
+              )}
+            </button>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? (
+                <CircularProgress size={16} color="inherit" />
+              ) : (
+                'Create'
+              )}
+            </button>
+          </div>
         </form>
       </div>
     </div>
   )
 }
 
-export default NewDepartment
+export default AddDepartment

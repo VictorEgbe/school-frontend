@@ -1,0 +1,107 @@
+.addDepartment {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    min-height: 100%;
+    backdrop-filter: blur(2px);
+
+    .wrapper {
+        background-color: white;
+        width: 45%;
+        margin: 10px;
+        padding: 30px;
+        border-radius: 10px;
+        margin-left: 280px;
+        margin-top: 80px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        h1 {
+            font-size: 18px;
+            text-transform: uppercase;
+            text-align: center;
+            font-weight: 500;
+            text-transform: uppercase;
+            word-spacing: 3px;
+            color: gray;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            .formGroup {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                label {
+                    font-size: 16px;
+                    color: gray;
+                    text-transform: uppercase;
+                }
+
+                input {
+                    padding: 10px;
+                    outline: none;
+                    border-radius: 10px;
+                    border: none;
+                    color: gray;
+                    border: 1px solid lightgray;
+                    letter-spacing: 3px;
+                    font-size: 17px;
+                    color: gray;
+
+                    &.errorStyle {
+                        outline: 1px solid red;
+                    }
+                }
+
+                span {
+                    color: red;
+                    text-transform: capitalize;
+                }
+            }
+
+            .buttons {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                button {
+                    width: 120px;
+                    padding: 10px;
+                    border-radius: 2px;
+                    cursor: pointer;
+                    border: none;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    background-color: #009688;
+                    text-transform: uppercase;
+                    font-weight: 500;
+                    letter-spacing: 3px;
+
+                    &:hover {
+                        background-color: #00796b;
+                    }
+
+                    &:disabled {
+                        cursor: not-allowed;
+                    }
+                }
+
+                button[type="button"] {
+                    background-color: #424242;
+
+                    &:hover {
+                        background-color: #757575;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -33,7 +33,8 @@ const queryClient = new QueryClient({
       refetchOnMount: false,
       refetchOnReconnect: false,
       retry: false,
-      staleTime: 24 * 60 * 60 * 1000, //24 hours
+      staleTime: 1 * 60 * 60 * 1000, //1 hours
+      cacheTime: 2 * 60 * 60 * 1000,
     },
   },
 })

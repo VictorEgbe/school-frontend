@@ -15,7 +15,7 @@ const Subjects = () => {
         <div className="classesCardsContainer">
           {classes.map((c) => (
             <Link
-              to={`/admin/subjects/${c.id}`}
+              to={`/subjects/${c.id}`}
               className="classCard link"
               key={c.id}
             >
