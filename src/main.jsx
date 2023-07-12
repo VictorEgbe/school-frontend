@@ -8,6 +8,7 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { loadUserFailure, loadUserSuccess } from './redux/authSlice'
 import axios from 'axios'
+import { Navigate } from 'react-router-dom'
 
 const token = JSON.parse(localStorage.getItem('auth'))
   ? JSON.parse(localStorage.getItem('auth')).token
@@ -21,7 +22,10 @@ if (token) {
       },
     })
     .then((response) => store.dispatch(loadUserSuccess(response.data)))
-    .catch(() => store.dispatch(loadUserFailure()))
+    .catch(() => {
+      store.dispatch(loadUserFailure())
+      return <Navigate to="/login" />
+    })
 } else {
   store.dispatch(loadUserFailure())
 }

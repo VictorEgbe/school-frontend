@@ -1,15 +1,28 @@
 import './Teacher.scss'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-import { useQuery } from '@tanstack/react-query'
-import { Link, useParams } from 'react-router-dom'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { authCall } from '../../apiCalls/index'
 import Error from '../../components/Error/Error'
 import noAvatar from '../../assets/avatar.png'
 import Spinner from '../../components/loadingSpinner/Spinner'
+import CircularProgress from '@mui/material/CircularProgress'
 
 const Teacher = () => {
   const { teacherID } = useParams()
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
+
+  const mutation = useMutation({
+    mutationFn: () => authCall.delete(`teachers/delete_teacher/${teacherID}`),
+    onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: ['teachers'] })
+      queryClient.refetchQueries({ queryKey: ['dashboard'] })
+      queryClient.refetchQueries({ queryKey: ['departments'] })
+      navigate('/teachers')
+    },
+  })
 
   const {
     isLoading,
@@ -46,14 +59,28 @@ const Teacher = () => {
 
               <div>
                 <Link
-                  className="edit link"
+                  className="editBtn link"
                   to={`/teachers/update/${teacherID}`}
                   title="Edit Teacher Info"
+                  disabled={mutation.isLoading}
                 >
-                  <EditIcon sx={{ fontSize: '16px' }} /> Edit
+                  {mutation.isLoading ? (
+                    <CircularProgress size={16} color="inherit" />
+                  ) : (
+                    <EditIcon sx={{ fontSize: '16px' }} />
+                  )}
                 </Link>
-                <button title="Delete Teacher">
-                  <DeleteIcon sx={{ fontSize: '16px' }} /> Delete
+                <button
+                  disabled={mutation.isLoading}
+                  onClick={() => mutation.mutate()}
+                  title="Delete Teacher"
+                  className="deleteBtn"
+                >
+                  {mutation.isLoading ? (
+                    <CircularProgress size={16} color="inherit" />
+                  ) : (
+                    <DeleteIcon sx={{ fontSize: '16px' }} />
+                  )}
                 </button>
               </div>
             </div>

@@ -13,7 +13,7 @@ import Error from '../../components/Error/Error'
 import Spinner from '../../components/loadingSpinner/Spinner'
 
 const Dashboard = () => {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ['dashboard'],
     queryFn: () => authCall.get('others/dashboard').then((res) => res.data),
   })
@@ -23,7 +23,11 @@ const Dashboard = () => {
   }
 
   if (isError) {
-    const errorMsg = 'Oops, something went wrong!!! Try again Later.'
+    console.log(error)
+
+    const errorMsg =
+      error?.response.data.error ||
+      'Oops, something went wrong!!! Try again Later.'
     return <Error errorMsg={errorMsg} />
   }
 

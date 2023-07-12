@@ -49,7 +49,6 @@ const NewTeacher = () => {
         })
         .then((res) => res.data),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['teachers'] })
       queryClient.refetchQueries({ queryKey: ['teachers'] })
       queryClient.refetchQueries({ queryKey: ['dashboard'] })
       queryClient.refetchQueries({ queryKey: ['departments'] })
@@ -59,7 +58,7 @@ const NewTeacher = () => {
 
   useEffect(() => {
     if (query.data) {
-      setDepartmentID(query.data[0].id)
+      query.data.length !== 0 && setDepartmentID(query.data[0].id)
     }
   }, [query.data])
 
