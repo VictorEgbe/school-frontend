@@ -29,9 +29,9 @@ $base-color: #0d084d;
                 flex: 3;
                 overflow: hidden;
                 display: flex;
-                justify-content: center;
-                align-items: center;
                 flex-direction: column;
+                align-items: center;
+                margin-top: 110px;
                 gap: 20px;
                 font-size: 18px;
                 color: gray;
@@ -71,7 +71,7 @@ $base-color: #0d084d;
                     width: 45%;
                     display: flex;
                     flex-direction: column;
-                    gap: 2px;
+                    gap: 3px;
 
                     label {
                         font-size: 14px;
@@ -103,7 +103,6 @@ $base-color: #0d084d;
 
                     span {
                         color: red;
-                        text-transform: uppercase;
                         font-size: 12px;
                     }
 

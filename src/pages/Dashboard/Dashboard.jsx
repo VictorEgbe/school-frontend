@@ -23,11 +23,9 @@ const Dashboard = () => {
   }
 
   if (isError) {
-    console.log(error)
-
     const errorMsg =
       error?.response.data.error ||
-      'Oops, something went wrong!!! Try again Later.'
+      'Oops, something went wrong!!! Please reload the page.'
     return <Error errorMsg={errorMsg} />
   }
 

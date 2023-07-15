@@ -54,8 +54,10 @@ const Department = () => {
         )
         .then((res) => res.data),
     onSuccess: (data) => {
+      const ID = data.department.hod_id
+      queryClient.refetchQueries({ queryKey: ['teacher', ID.toString()] })
       queryClient.setQueryData(['department', departmentID], data)
-      queryClient.invalidateQueries({ queryKey: ['departments'] })
+      queryClient.refetchQueries({ queryKey: ['teachers'] })
       queryClient.refetchQueries({ queryKey: ['departments'] })
       setOpen(false)
     },

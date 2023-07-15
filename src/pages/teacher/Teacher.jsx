@@ -96,7 +96,16 @@ const Teacher = () => {
 
                 <div className="others">
                   <p className="age">Age: {teacherInfo.age} years old</p>
-                  <p className="department">Depart: {teacherInfo.department}</p>
+                  <p>
+                    Depart:{' '}
+                    <Link
+                      className="link"
+                      to={`/departments/${teacherInfo.department.id}`}
+                    >
+                      {teacherInfo.department.name}
+                    </Link>
+                  </p>
+
                   <p className="gender">Gender: {teacherInfo.gender}</p>
                   <p className="gender">
                     H.O.D: {teacherInfo.isHOD ? 'Yes' : 'No'}{' '}

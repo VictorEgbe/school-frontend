@@ -1,18 +1,21 @@
 import './EditTeacher.scss'
-import Avatar from '../../assets/avatar.png'
+import noImage from '../../assets/noImage.webp'
 import Folder from '@mui/icons-material/Folder'
-import { Send } from '@mui/icons-material'
-import { userInput } from './data'
 import { useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query'
 import { authCall } from '../../apiCalls/index'
 import Error from '../../components/Error/Error'
 import Spinner from '../../components/loadingSpinner/Spinner'
+import { useEffect } from 'react'
+import AddIcon from '@mui/icons-material/Add'
+import AddDepartment from '../newTeacher/AddDepartment/AddDepartment'
+import { CircularProgress } from '@mui/material'
 
 const EditTeacher = () => {
   const [image, setImage] = useState(null)
-  const [gender, setGender] = useState('Male')
+  const [gender, setGender] = useState('')
+  const [departmentID, setDepartmentID] = useState(undefined)
   const [inputInfo, setInputInfo] = useState({
     first_name: '',
     last_name: '',
@@ -21,36 +24,61 @@ const EditTeacher = () => {
     email: '',
     username: '',
     date_of_birth: '',
-    password: '',
-    password2: '',
   })
-
+  const [open, setOpen] = useState(false)
+  const [newImage, setNewImage] = useState(null)
   const { teacherID } = useParams()
   const queryClient = useQueryClient()
   const navigate = useNavigate()
-  const [department, setDepartment] = useState({})
+
+  const departmentQuery = useQuery({
+    queryKey: ['departmentsIDsAndNames'],
+    queryFn: () =>
+      authCall
+        .get('others/get_departments_ids_and_names')
+        .then((res) => res.data),
+  })
 
   const query = useQuery({
-    queryKey: ['teachers', teacherID],
+    queryKey: ['updateTeacher', teacherID],
     queryFn: () =>
-      authCall.get(`teachers/get_teacher/${teacherID}`).then((res) => {
-        // Extract information here and set it (useState)
-        return res.data
-      }),
+      authCall
+        .get(`others/get_teacher_update_info/${teacherID}`)
+        .then((res) => res.data),
     retry: 2,
   })
 
-  const mutation = useMutation({
+  useEffect(() => {
+    if (departmentQuery.data) {
+      departmentQuery.data.length !== 0 &&
+        setDepartmentID(departmentQuery.data[0].id)
+    }
+  }, [departmentQuery.data])
+
+  useEffect(() => {
+    if (query.data) {
+      const { image, gender, department, ...others } = query.data
+      setImage(image)
+      setGender(gender)
+      setInputInfo({ ...others })
+      setDepartmentID(department.id)
+    }
+  }, [query.data])
+
+  const { isError, error, mutate, isLoading } = useMutation({
     mutationFn: (apiData) =>
       authCall
-        .put(
-          `update_teacher/${teacherID}/${department.id}`,
-          JSON.stringify(apiData)
-        )
+        .put(`teachers/update_teacher/${teacherID}/${departmentID}`, apiData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
         .then((res) => res.data),
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['teachers', teacherID] })
-      navigate(`/teachers/${data.id}`)
+    onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: ['teacher', teacherID] })
+      queryClient.refetchQueries({ queryKey: ['dashboard'] })
+      queryClient.refetchQueries({ queryKey: ['departments'] })
+      queryClient.refetchQueries({ queryKey: ['teachers'] })
+      queryClient.refetchQueries({ queryKey: ['updateTeacher', teacherID] })
+      navigate(`/teachers/${teacherID}`)
     },
   })
 
@@ -67,71 +95,302 @@ const EditTeacher = () => {
     setInputInfo({ ...inputInfo, [e.target.name]: e.target.value })
   }
 
+  const handleImageChange = (e) => {
+    setImage(null)
+    setNewImage(e.target.files[0])
+  }
+
+  const handleClearImage = () => {
+    setImage(null)
+    setNewImage(null)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    const data = { ...inputInfo, gender, image }
-    console.log(data)
-    // Make api call here
+    let formData = new FormData()
+
+    if (newImage) {
+      formData.append('image', newImage, newImage.name)
+    }
+    formData.append('gender', gender)
+    formData.append('first_name', inputInfo.first_name)
+    formData.append('last_name', inputInfo.last_name)
+    formData.append('phone', inputInfo.phone)
+    formData.append('address', inputInfo.address)
+    formData.append('email', inputInfo.email)
+    formData.append('username', inputInfo.username)
+    formData.append('date_of_birth', inputInfo.date_of_birth)
+    mutate(formData)
   }
 
   return (
-    <div className="editTeacher">
-      <div className="container">
-        <h1>Edit {"Teacher's"} information</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="left">
-            <img src={image ? URL.createObjectURL(image) : Avatar} alt="" />
+    <>
+      {open && <AddDepartment setOpen={setOpen} />}
+      <div className="editTeacher">
+        <div className="container">
+          <h1>Edit {"Teacher's"} information</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="left">
+              {image ? (
+                <img src={image} alt="" />
+              ) : (
+                <img
+                  src={newImage ? URL.createObjectURL(newImage) : noImage}
+                  alt=""
+                />
+              )}
 
-            <div>
-              <label className="folder" htmlFor="image">
-                Select an image: <Folder />
-              </label>
-              <input
-                required
-                id="image"
-                type="file"
-                accept=".png, .jpg, .jpeg"
-                style={{ display: 'none' }}
-                onChange={(e) => setImage(e.target.files[0])}
-              />
-            </div>
-          </div>
-          <div className="right">
-            {userInput.map((input, index) => (
-              <div className="formGroup" key={index}>
-                <label htmlFor={input.id}>{input.label}</label>
+              <div>
+                <label className="folder" htmlFor="image">
+                  Select an image: <Folder />
+                </label>
                 <input
-                  required
-                  id={input.id}
-                  type={input.type}
-                  placeholder={input.placeholder}
-                  onChange={handleChange}
-                  name={input.id}
+                  id="image"
+                  type="file"
+                  accept=".png, .jpg, .jpeg"
+                  style={{ display: 'none' }}
+                  onChange={handleImageChange}
                 />
               </div>
-            ))}
-
-            <div className="formGroup">
-              <label htmlFor="gender">Gender: </label>
-              <select
-                required
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
-              >
-                <option>Male</option>
-                <option>Female</option>
-              </select>
+              {(image || newImage) && (
+                <button onClick={handleClearImage} type="button">
+                  Remove image
+                </button>
+              )}
             </div>
 
-            <div className="button">
-              <button type="submit">
-                <Send /> Save
-              </button>
+            <div className="right">
+              <div className="formGroup">
+                <label htmlFor="first_name">First Name</label>
+                <input
+                  onChange={handleChange}
+                  id="first_name"
+                  type="text"
+                  placeholder="e.g John"
+                  value={inputInfo.first_name}
+                  disabled={isLoading}
+                  name="first_name"
+                  required
+                  className={
+                    isError
+                      ? error.response.data?.first_name
+                        ? 'errorMsg'
+                        : ''
+                      : ''
+                  }
+                />
+                {error?.response.data?.first_name && (
+                  <span>{error.response.data?.first_name[0]}</span>
+                )}
+              </div>
+
+              <div className="formGroup">
+                <label htmlFor="last_name">Last Name</label>
+                <input
+                  onChange={handleChange}
+                  id="last_name"
+                  type="text"
+                  placeholder="e.g Doe"
+                  value={inputInfo.last_name}
+                  disabled={isLoading}
+                  name="last_name"
+                  required
+                  className={
+                    isError
+                      ? error.response.data?.last_name
+                        ? 'errorMsg'
+                        : ''
+                      : ''
+                  }
+                />
+                {error?.response.data?.last_name && (
+                  <span>{error.response.data?.last_name[0]}</span>
+                )}
+              </div>
+
+              <div className="formGroup">
+                <label htmlFor="phone">Phone Number</label>
+                <input
+                  onChange={handleChange}
+                  id="phone"
+                  type="text"
+                  placeholder="e.g 666777888"
+                  value={inputInfo.phone}
+                  disabled={isLoading}
+                  name="phone"
+                  required
+                  className={
+                    isError
+                      ? error.response.data?.phone
+                        ? 'errorMsg'
+                        : ''
+                      : ''
+                  }
+                />
+                {error?.response.data?.phone && (
+                  <span>{error.response.data?.phone[0]}</span>
+                )}
+              </div>
+
+              <div className="formGroup">
+                <label htmlFor="address">Address</label>
+                <input
+                  onChange={handleChange}
+                  id="address"
+                  type="text"
+                  placeholder="e.g TKC, Yaounde"
+                  value={inputInfo.address}
+                  disabled={isLoading}
+                  name="address"
+                  required
+                  className={
+                    isError
+                      ? error.response.data?.address
+                        ? 'errorMsg'
+                        : ''
+                      : ''
+                  }
+                />
+                {error?.response.data?.address && (
+                  <span>{error.response.data?.address[0]}</span>
+                )}
+              </div>
+
+              <div className="formGroup">
+                <label htmlFor="email">Email</label>
+                <input
+                  onChange={handleChange}
+                  id="email"
+                  type="email"
+                  placeholder="jdoe@company.com"
+                  value={inputInfo.email}
+                  disabled={isLoading}
+                  name="email"
+                  required
+                  className={
+                    isError
+                      ? error.response.data?.email
+                        ? 'errorMsg'
+                        : ''
+                      : ''
+                  }
+                />
+                {error?.response.data?.email && (
+                  <span>{error.response.data?.email[0]}</span>
+                )}
+              </div>
+
+              <div className="formGroup">
+                <label htmlFor="username">Username</label>
+                <input
+                  onChange={handleChange}
+                  id="username"
+                  type="text"
+                  placeholder="JohnDoe"
+                  value={inputInfo.username}
+                  disabled={isLoading}
+                  name="username"
+                  required
+                  className={
+                    isError
+                      ? error.response.data?.username
+                        ? 'errorMsg'
+                        : ''
+                      : ''
+                  }
+                />
+                {error?.response.data?.username && (
+                  <span>{error.response.data?.username[0]}</span>
+                )}
+              </div>
+
+              <div className="formGroup">
+                <label htmlFor="dob">Date of birth</label>
+                <input
+                  onChange={handleChange}
+                  id="dob"
+                  type="date"
+                  value={inputInfo.date_of_birth}
+                  disabled={isLoading}
+                  name="date_of_birth"
+                  required
+                  className={
+                    isError
+                      ? error.response.data?.date_of_birth
+                        ? 'errorMsg'
+                        : ''
+                      : ''
+                  }
+                />
+                {error?.response.data?.date_of_birth && (
+                  <span>{error.response.data?.date_of_birth[0]}</span>
+                )}
+              </div>
+
+              <div className="formGroup">
+                <label htmlFor="gender">Gender: </label>
+                <select
+                  required
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
+                >
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+              </div>
+
+              <div className="departmentSelect">
+                <label htmlFor="department">Department: </label>
+                <div>
+                  <select
+                    required
+                    value={departmentID}
+                    onChange={(e) => setDepartmentID(e.target.value)}
+                    disabled={isLoading}
+                    className="select"
+                  >
+                    {departmentQuery.data.map((depart) => (
+                      <option value={depart.id} key={depart.id}>
+                        {depart.name}
+                      </option>
+                    ))}
+                  </select>
+                  <div
+                    onClick={() => setOpen(true)}
+                    title="Add a department"
+                    className="add"
+                  >
+                    <AddIcon className="addIcon" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="button">
+                <Link
+                  to={`/teachers/${teacherID}`}
+                  className="btn link"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <CircularProgress size={22} color="inherit" />
+                  ) : (
+                    'Cancel'
+                  )}
+                </Link>
+
+                <button className="btn" type="submit" disabled={isLoading}>
+                  {isLoading ? (
+                    <CircularProgress size={22} color="inherit" />
+                  ) : (
+                    'Update'
+                  )}
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
