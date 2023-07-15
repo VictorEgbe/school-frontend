@@ -24,7 +24,7 @@ const Dashboard = () => {
 
   if (isError) {
     const errorMsg =
-      error?.response.data.error ||
+      error?.response?.data?.error ||
       'Oops, something went wrong!!! Please reload the page.'
     return <Error errorMsg={errorMsg} />
   }
@@ -44,27 +44,27 @@ const Dashboard = () => {
           <div className="top">
             <Card
               name="students"
-              value={data.students}
+              value={data?.students}
               icon={<Groups sx={{ fontSize: '40px' }} />}
             />
             <Card
               name="departments"
-              value={data.departments}
+              value={data?.departments}
               icon={<Diversity3 sx={{ fontSize: '40px' }} />}
             />
             <Card
               name="teachers"
-              value={data.teachers}
+              value={data?.teachers}
               icon={<People sx={{ fontSize: '40px' }} />}
             />
             <Card
               name="admins"
-              value={data.admins}
+              value={data?.admins}
               icon={<AdminPanelSettingsIcon sx={{ fontSize: '40px' }} />}
             />
             <Card
               name="classes"
-              value={data.classes}
+              value={data?.classes}
               icon={<Class sx={{ fontSize: '40px' }} />}
             />
           </div>
@@ -72,11 +72,11 @@ const Dashboard = () => {
             <div className="item">
               <BarChart
                 classStudents={data?.classStudents}
-                currentYear={data.currentYear}
+                currentYear={data?.currentYear}
               />
             </div>
             <div className="item">
-              <PieChart departmentsInfo={data.departmentsInfo} />
+              <PieChart departmentsInfo={data?.departmentsInfo} />
             </div>
           </div>
         </div>

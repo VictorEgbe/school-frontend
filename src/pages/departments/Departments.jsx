@@ -22,7 +22,7 @@ const Departments = () => {
   }
 
   if (isError) {
-    const errorMsg = 'Something went wrong. Please reload page.'
+    const errorMsg = 'Something went wrong. Please reload the page.'
     return <Error errorMsg={errorMsg} />
   }
 

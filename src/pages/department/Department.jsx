@@ -79,9 +79,9 @@ const Department = () => {
   }
 
   if (isError) {
-    const errorMsg =
-      error?.response.data.error ||
-      'Something went wrong. Please reload the page.'
+    const errorMsg = error.response
+      ? error.response.data.error
+      : 'Something went wrong. Please reload the page.'
     return <Error errorMsg={errorMsg} />
   }
 

@@ -82,12 +82,19 @@ const EditTeacher = () => {
     },
   })
 
-  if (query.isLoading) {
+  if (query.isLoading || departmentQuery.isLoading) {
     return <Spinner />
   }
 
+  if (departmentQuery.isError) {
+    const errorMsg = 'Something went wrong. Please reload the page.'
+    return <Error errorMsg={errorMsg} />
+  }
+
   if (query.isError) {
-    const errorMsg = 'Something went wrong. Please reload page.'
+    const errorMsg = query.error.response
+      ? query.error.response.data.error
+      : 'Something went wrong. Please reload the page.'
     return <Error errorMsg={errorMsg} />
   }
 
