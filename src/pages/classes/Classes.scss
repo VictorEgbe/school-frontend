@@ -10,23 +10,43 @@ $base-green-color: rgb(4, 133, 4);
         flex-direction: column;
         gap: 30px;
 
-        .add {
-            height: 50px;
-            width: 50px;
-            padding: 10px;
-            background-color: white;
-            color: $base-green-color;
-            -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
-            box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+        .header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            cursor: pointer;
+            justify-content: space-between;
 
-            &:hover {
-                background-color: $base-green-color;
+            .basicInfo {
+                box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+                -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+                padding: 10px;
+                border-radius: 5px;
+                width: max-content;
+                text-transform: uppercase;
+                color: #616161;
+                font-weight: 500;
+                font-size: 20px;
+                letter-spacing: 3px;
+            }
+
+            .addClassBtn {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                border: none;
+                box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+                -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+                padding: 10px;
+                border-radius: 5px;
+                width: max-content;
+                cursor: pointer;
+                background-color: #009688;
                 color: white;
+                text-transform: uppercase;
+
+                &:hover {
+                    background-color: white;
+                    color: #009688;
+                }
             }
         }
 
@@ -34,6 +54,13 @@ $base-green-color: rgb(4, 133, 4);
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
+
+            .noClasses {
+                font-size: 25px;
+                color: lightgray;
+                text-transform: uppercase;
+                font-weight: 500;
+            }
 
             .classCard {
                 width: 280px;
@@ -70,15 +97,19 @@ $base-green-color: rgb(4, 133, 4);
                 .bottomClass {
                     margin-top: 10px;
                     flex-direction: column;
-                    gap: 3px;
+                    gap: 20px;
                     align-items: center;
-                    font-size: 18px;
-                    color: $base-color;
+                    font-size: 20px;
+                    color: lightgray;
                     font-weight: 500;
+                    padding: 0px 20px;
+                    text-transform: uppercase;
 
-                    span {
+                    .gender {
+                        width: 100%;
                         display: flex;
                         align-items: center;
+                        justify-content: space-between;
                     }
                 }
             }
