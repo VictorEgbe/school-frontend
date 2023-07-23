@@ -23,7 +23,8 @@ export const authSlice = createSlice({
     loginSuccess: (state, action) => {
       localStorage.setItem('user', JSON.stringify(action.payload.user))
       localStorage.setItem('auth', JSON.stringify(action.payload.auth))
-      state.user = action.payload.user
+      state.user = action.payload.user,
+      state.isLoading = false
     },
     loadUserSuccess: (state, action) => {
       localStorage.setItem('user', JSON.stringify(action.payload))

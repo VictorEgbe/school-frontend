@@ -32,15 +32,12 @@ import Admins from './pages/admins/Admins'
 import NewDepartment from './pages/newDepartment/NewDepartment'
 import NewTeacher from './pages/newTeacher/NewTeacher'
 import EditTeacher from './pages/editTeacher/EditTeacher'
+import { useSelector } from 'react-redux'
 
-const user = localStorage.getItem('user')
-  ? JSON.parse(localStorage.getItem('user'))
-  : {}
-const isAuthenticated = JSON.parse(localStorage.getItem('auth'))?.token
-  ? true
-  : false
 
 const AdminAuthRoutes = ({ children }) => {
+  const isAuthenticated = Boolean(JSON.parse(localStorage.getItem('auth'))?.token) 
+  const user = useSelector(state => state.user)
   if (isAuthenticated && user.isAdmin) {
     return children
   } else {
@@ -49,6 +46,8 @@ const AdminAuthRoutes = ({ children }) => {
 }
 
 const AdminLoginRoute = ({ children }) => {
+  const isAuthenticated = Boolean(JSON.parse(localStorage.getItem('auth'))?.token) 
+  const user = useSelector(state => state.user)
   if (!isAuthenticated || !user.isAdmin) {
     return children
   } else {

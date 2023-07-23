@@ -10,9 +10,8 @@ import { loadUserFailure, loadUserSuccess } from './redux/authSlice'
 import axios from 'axios'
 import { Navigate } from 'react-router-dom'
 
-const token = JSON.parse(localStorage.getItem('auth'))
-  ? JSON.parse(localStorage.getItem('auth')).token
-  : null
+const token = JSON.parse(localStorage.getItem('auth'))?.token
+
 if (token) {
   axios
     .get('http://localhost:8000/api/accounts/load_user', {

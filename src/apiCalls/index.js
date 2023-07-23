@@ -2,9 +2,7 @@ import axios from 'axios'
 
 const BASEURL = 'http://localhost:8000/api/'
 
-const token = localStorage.getItem('auth')
-  ? JSON.parse(localStorage.getItem('auth')).token
-  : null
+const token =  JSON.parse(localStorage.getItem('auth'))?.token
 
 export const authCall = axios.create({
   baseURL: BASEURL,
