@@ -1,48 +1,48 @@
-import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material'
-import './Login.scss'
-import { useState } from 'react'
-import { CircularProgress } from '@mui/material'
-import { loginStart, loginFailure, loginSuccess } from '../../redux/authSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
-const URL = 'http://localhost:8000/api/accounts/sign_in'
+import { VisibilityOffOutlined, VisibilityOutlined } from "@mui/icons-material";
+import "./Login.scss";
+import { useState } from "react";
+import { CircularProgress } from "@mui/material";
+import { loginStart, loginFailure, loginSuccess } from "../../redux/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+const URL = "http://localhost:8000/api/accounts/sign_in";
 
 const Login = () => {
-  const [visible, setVisible] = useState(false)
-  const [phone, setPhone] = useState('')
-  const [password, setPassword] = useState('')
-  const dispatch = useDispatch()
-  const isLoading = useSelector((state) => state.isLoading)
-  const error = useSelector((state) => state.error)
+  const [visible, setVisible] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.isLoading);
+  const error = useSelector((state) => state.error);
 
   const handleLogin = (e) => {
-    e.preventDefault()
-    dispatch(loginStart())
-    const data = JSON.stringify({ phone, password })
+    e.preventDefault();
+    dispatch(loginStart());
+    const data = JSON.stringify({ phone, password });
     axios
       .post(URL, data, {
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
         if (response.data.user.isAdmin) {
-          dispatch(loginSuccess(response.data))
-          location.reload()
+          dispatch(loginSuccess(response.data));
+          location.reload();
         } else {
           const msg =
-            'You are not an administrator. This site is for administrators only'
-          dispatch(loginFailure(msg))
+            "You are not an administrator. This site is for administrators only";
+          dispatch(loginFailure(msg));
         }
       })
       .catch((err) => {
         if (err.response.data.phone) {
-          dispatch(loginFailure(err.response.data.phone[0]))
+          dispatch(loginFailure(err.response.data.phone[0]));
         } else if (err.response.data.non_field_errors) {
-          dispatch(loginFailure(err.response.data.non_field_errors[0]))
+          dispatch(loginFailure(err.response.data.non_field_errors[0]));
         } else {
-          dispatch(loginFailure('Something went wrong'))
+          dispatch(loginFailure("Something went wrong"));
         }
-      })
-  }
+      });
+  };
 
   return (
     <div className="login">
@@ -67,7 +67,7 @@ const Login = () => {
                 disabled={isLoading}
               />
               <input
-                type={visible ? 'text' : 'password'}
+                type={visible ? "text" : "password"}
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -89,7 +89,7 @@ const Login = () => {
                 {isLoading ? (
                   <CircularProgress color="error" size={15} />
                 ) : (
-                  'Login'
+                  "Login"
                 )}
               </button>
             </form>
@@ -98,7 +98,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
