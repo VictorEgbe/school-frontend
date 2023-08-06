@@ -39,9 +39,6 @@ const Classes = () => {
     return <Error errorMsg={errorMsg} />;
   }
 
-  if (mutation.isError) {
-    console.log(mutation.error.response.data.error);
-  }
   return (
     <>
       {open && <AddClass setOpen={setOpen} mutation={mutation} />}

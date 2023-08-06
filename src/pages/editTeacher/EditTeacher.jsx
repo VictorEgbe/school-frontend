@@ -1,134 +1,127 @@
-import './EditTeacher.scss'
-import noImage from '../../assets/noImage.webp'
-import Folder from '@mui/icons-material/Folder'
-import { useState } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
-import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query'
-import { authCall } from '../../apiCalls/index'
-import Error from '../../components/Error/Error'
-import Spinner from '../../components/loadingSpinner/Spinner'
-import { useEffect } from 'react'
-import AddIcon from '@mui/icons-material/Add'
-import AddDepartment from '../newTeacher/AddDepartment/AddDepartment'
-import { CircularProgress } from '@mui/material'
+import "./EditTeacher.scss";
+import noImage from "../../assets/noImage.webp";
+import Folder from "@mui/icons-material/Folder";
+import { useState } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
+import { authCall, authCallWithImage } from "../../apiCalls/index";
+import Error from "../../components/Error/Error";
+import Spinner from "../../components/loadingSpinner/Spinner";
+import { useEffect } from "react";
+import AddIcon from "@mui/icons-material/Add";
+import AddDepartment from "../newTeacher/AddDepartment/AddDepartment";
+import { CircularProgress } from "@mui/material";
 
 const EditTeacher = () => {
-  const [image, setImage] = useState(null)
-  const [gender, setGender] = useState('')
-  const [departmentID, setDepartmentID] = useState(undefined)
+  const [image, setImage] = useState(null);
+  const [gender, setGender] = useState("");
+  const [departmentID, setDepartmentID] = useState(undefined);
   const [inputInfo, setInputInfo] = useState({
-    first_name: '',
-    last_name: '',
-    phone: '',
-    address: '',
-    email: '',
-    username: '',
-    date_of_birth: '',
-  })
-  const [open, setOpen] = useState(false)
-  const [newImage, setNewImage] = useState(null)
-  const { teacherID } = useParams()
-  const queryClient = useQueryClient()
-  const navigate = useNavigate()
+    first_name: "",
+    last_name: "",
+    phone: "",
+    address: "",
+    email: "",
+    username: "",
+    date_of_birth: "",
+  });
+  const [open, setOpen] = useState(false);
+  const [newImage, setNewImage] = useState(null);
+  const { teacherID } = useParams();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const departmentQuery = useQuery({
-    queryKey: ['departmentsIDsAndNames'],
+    queryKey: ["departmentsIDsAndNames"],
     queryFn: () =>
       authCall
-        .get('others/get_departments_ids_and_names')
+        .get("others/get_departments_ids_and_names")
         .then((res) => res.data),
-  })
+  });
 
   const query = useQuery({
-    queryKey: ['updateTeacher', teacherID],
+    queryKey: ["updateTeacher", teacherID],
     queryFn: () =>
       authCall
         .get(`others/get_teacher_update_info/${teacherID}`)
         .then((res) => res.data),
     retry: 2,
-  })
+  });
 
   useEffect(() => {
     if (departmentQuery.data) {
       departmentQuery.data.length !== 0 &&
-        setDepartmentID(departmentQuery.data[0].id)
+        setDepartmentID(departmentQuery.data[0].id);
     }
-  }, [departmentQuery.data])
+  }, [departmentQuery.data]);
 
   useEffect(() => {
     if (query.data) {
-      const { image, gender, department, ...others } = query.data
-      setImage(image)
-      setGender(gender)
-      setInputInfo({ ...others })
-      setDepartmentID(department.id)
+      const { image, gender, department, ...others } = query.data;
+      setImage(image);
+      setGender(gender);
+      setInputInfo({ ...others });
+      setDepartmentID(department.id);
     }
-  }, [query.data])
+  }, [query.data]);
 
   const { isError, error, mutate, isLoading } = useMutation({
     mutationFn: (apiData) =>
-      authCall
-        .put(`teachers/update_teacher/${teacherID}/${departmentID}`, apiData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
+      authCallWithImage
+        .put(`teachers/update_teacher/${teacherID}/${departmentID}`, apiData)
         .then((res) => res.data),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ['teacher', teacherID] })
-      queryClient.refetchQueries({ queryKey: ['dashboard'] })
-      queryClient.refetchQueries({ queryKey: ['departments'] })
-      queryClient.refetchQueries({ queryKey: ['teachers'] })
-      queryClient.refetchQueries({ queryKey: ['updateTeacher', teacherID] })
-      navigate(`/teachers/${teacherID}`)
+      queryClient.refetchQueries({ queryKey: ["teacher", teacherID] });
+      queryClient.refetchQueries({ queryKey: ["dashboard"] });
+      queryClient.refetchQueries({ queryKey: ["departments"] });
+      queryClient.refetchQueries({ queryKey: ["teachers"] });
+      queryClient.refetchQueries({ queryKey: ["updateTeacher", teacherID] });
+      navigate(`/teachers/${teacherID}`);
     },
-  })
+  });
 
   if (query.isLoading || departmentQuery.isLoading) {
-    return <Spinner />
+    return <Spinner />;
   }
 
   if (departmentQuery.isError) {
-    const errorMsg = 'Something went wrong. Please reload the page.'
-    return <Error errorMsg={errorMsg} />
+    const errorMsg = "Something went wrong. Please reload the page.";
+    return <Error errorMsg={errorMsg} />;
   }
 
   if (query.isError) {
     const errorMsg = query.error.response
       ? query.error.response.data.error
-      : 'Something went wrong. Please reload the page.'
-    return <Error errorMsg={errorMsg} />
+      : "Something went wrong. Please reload the page.";
+    return <Error errorMsg={errorMsg} />;
   }
 
   const handleChange = (e) => {
-    setInputInfo({ ...inputInfo, [e.target.name]: e.target.value })
-  }
+    setInputInfo({ ...inputInfo, [e.target.name]: e.target.value });
+  };
 
   const handleImageChange = (e) => {
-    setImage(null)
-    setNewImage(e.target.files[0])
-  }
-
-  const handleClearImage = () => {
-    setImage(null)
-    setNewImage(null)
-  }
+    setImage(null);
+    setNewImage(e.target.files[0]);
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    let formData = new FormData()
+    e.preventDefault();
+    let formData = new FormData();
 
     if (newImage) {
-      formData.append('image', newImage, newImage.name)
+      formData.append("image", newImage, newImage.name);
     }
-    formData.append('gender', gender)
-    formData.append('first_name', inputInfo.first_name)
-    formData.append('last_name', inputInfo.last_name)
-    formData.append('phone', inputInfo.phone)
-    formData.append('address', inputInfo.address)
-    formData.append('email', inputInfo.email)
-    formData.append('username', inputInfo.username)
-    formData.append('date_of_birth', inputInfo.date_of_birth)
-    mutate(formData)
-  }
+    formData.append("gender", gender);
+    formData.append("first_name", inputInfo.first_name);
+    formData.append("last_name", inputInfo.last_name);
+    formData.append("phone", inputInfo.phone);
+    formData.append("address", inputInfo.address);
+    formData.append("email", inputInfo.email);
+    formData.append("username", inputInfo.username);
+    formData.append("date_of_birth", inputInfo.date_of_birth);
+    mutate(formData);
+  };
 
   return (
     <>
@@ -155,15 +148,10 @@ const EditTeacher = () => {
                   id="image"
                   type="file"
                   accept=".png, .jpg, .jpeg"
-                  style={{ display: 'none' }}
+                  style={{ display: "none" }}
                   onChange={handleImageChange}
                 />
               </div>
-              {(image || newImage) && (
-                <button onClick={handleClearImage} type="button">
-                  Remove image
-                </button>
-              )}
             </div>
 
             <div className="right">
@@ -181,9 +169,9 @@ const EditTeacher = () => {
                   className={
                     isError
                       ? error.response.data?.first_name
-                        ? 'errorMsg'
-                        : ''
-                      : ''
+                        ? "errorMsg"
+                        : ""
+                      : ""
                   }
                 />
                 {error?.response.data?.first_name && (
@@ -205,9 +193,9 @@ const EditTeacher = () => {
                   className={
                     isError
                       ? error.response.data?.last_name
-                        ? 'errorMsg'
-                        : ''
-                      : ''
+                        ? "errorMsg"
+                        : ""
+                      : ""
                   }
                 />
                 {error?.response.data?.last_name && (
@@ -229,9 +217,9 @@ const EditTeacher = () => {
                   className={
                     isError
                       ? error.response.data?.phone
-                        ? 'errorMsg'
-                        : ''
-                      : ''
+                        ? "errorMsg"
+                        : ""
+                      : ""
                   }
                 />
                 {error?.response.data?.phone && (
@@ -253,9 +241,9 @@ const EditTeacher = () => {
                   className={
                     isError
                       ? error.response.data?.address
-                        ? 'errorMsg'
-                        : ''
-                      : ''
+                        ? "errorMsg"
+                        : ""
+                      : ""
                   }
                 />
                 {error?.response.data?.address && (
@@ -277,9 +265,9 @@ const EditTeacher = () => {
                   className={
                     isError
                       ? error.response.data?.email
-                        ? 'errorMsg'
-                        : ''
-                      : ''
+                        ? "errorMsg"
+                        : ""
+                      : ""
                   }
                 />
                 {error?.response.data?.email && (
@@ -301,9 +289,9 @@ const EditTeacher = () => {
                   className={
                     isError
                       ? error.response.data?.username
-                        ? 'errorMsg'
-                        : ''
-                      : ''
+                        ? "errorMsg"
+                        : ""
+                      : ""
                   }
                 />
                 {error?.response.data?.username && (
@@ -324,9 +312,9 @@ const EditTeacher = () => {
                   className={
                     isError
                       ? error.response.data?.date_of_birth
-                        ? 'errorMsg'
-                        : ''
-                      : ''
+                        ? "errorMsg"
+                        : ""
+                      : ""
                   }
                 />
                 {error?.response.data?.date_of_birth && (
@@ -381,7 +369,7 @@ const EditTeacher = () => {
                   {isLoading ? (
                     <CircularProgress size={22} color="inherit" />
                   ) : (
-                    'Cancel'
+                    "Cancel"
                   )}
                 </Link>
 
@@ -389,7 +377,7 @@ const EditTeacher = () => {
                   {isLoading ? (
                     <CircularProgress size={22} color="inherit" />
                   ) : (
-                    'Update'
+                    "Update"
                   )}
                 </button>
               </div>
@@ -398,7 +386,7 @@ const EditTeacher = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default EditTeacher
+export default EditTeacher;

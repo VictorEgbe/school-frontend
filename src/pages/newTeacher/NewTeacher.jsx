@@ -1,97 +1,95 @@
-import './NewTeacher.scss'
-import noImage from '../../assets/noImage.webp'
-import Folder from '@mui/icons-material/Folder'
-import { userInput } from './data'
-import { useState } from 'react'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { authCall } from '../../apiCalls'
-import { useNavigate } from 'react-router-dom'
-import Error from '../../components/Error/Error'
-import Spinner from '../../components/loadingSpinner/Spinner'
-import CircularProgress from '@mui/material/CircularProgress'
-import { useEffect } from 'react'
-import AddIcon from '@mui/icons-material/Add'
-import AddDepartment from './AddDepartment/AddDepartment'
+import "./NewTeacher.scss";
+import noImage from "../../assets/noImage.webp";
+import Folder from "@mui/icons-material/Folder";
+import { userInput } from "./data";
+import { useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { authCall, authCallWithImage } from "../../apiCalls";
+import { useNavigate } from "react-router-dom";
+import Error from "../../components/Error/Error";
+import Spinner from "../../components/loadingSpinner/Spinner";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useEffect } from "react";
+import AddIcon from "@mui/icons-material/Add";
+import AddDepartment from "./AddDepartment/AddDepartment";
 
 const NewTeacher = () => {
-  const [image, setImage] = useState(null)
-  const [gender, setGender] = useState('Male')
+  const [image, setImage] = useState(null);
+  const [gender, setGender] = useState("Male");
   const [inputInfo, setInputInfo] = useState({
-    first_name: '',
-    last_name: '',
-    phone: '',
-    address: '',
-    email: '',
-    username: '',
-    date_of_birth: '',
-    password: '',
-    password2: '',
-  })
+    first_name: "",
+    last_name: "",
+    phone: "",
+    address: "",
+    email: "",
+    username: "",
+    date_of_birth: "",
+    password: "",
+    password2: "",
+  });
 
-  const [departmentID, setDepartmentID] = useState(0)
-  const navigate = useNavigate()
-  const queryClient = useQueryClient()
-  const [open, setOpen] = useState(false)
+  const [departmentID, setDepartmentID] = useState(0);
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [open, setOpen] = useState(false);
 
   const query = useQuery({
-    queryKey: ['departmentsIDsAndNames'],
+    queryKey: ["departmentsIDsAndNames"],
     queryFn: () =>
       authCall
-        .get('others/get_departments_ids_and_names')
+        .get("others/get_departments_ids_and_names")
         .then((res) => res.data),
-  })
+  });
 
   const { isError, error, mutate, isLoading } = useMutation({
     mutationFn: (apiData) =>
-      authCall
-        .post(`teachers/create_teacher/${departmentID}`, apiData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
+      authCallWithImage
+        .post(`teachers/create_teacher/${departmentID}`, apiData)
         .then((res) => res.data),
     onSuccess: (data) => {
-      queryClient.refetchQueries({ queryKey: ['teachers'] })
-      queryClient.refetchQueries({ queryKey: ['dashboard'] })
-      queryClient.refetchQueries({ queryKey: ['departments'] })
-      navigate(`/teachers/${data.id}`)
+      queryClient.refetchQueries({ queryKey: ["teachers"] });
+      queryClient.refetchQueries({ queryKey: ["dashboard"] });
+      queryClient.refetchQueries({ queryKey: ["departments"] });
+      navigate(`/teachers/${data.id}`);
     },
-  })
+  });
 
   useEffect(() => {
     if (query.data) {
-      query.data.length !== 0 && setDepartmentID(query.data[0].id)
+      query.data.length !== 0 && setDepartmentID(query.data[0].id);
     }
-  }, [query.data])
+  }, [query.data]);
 
   const handleChange = (e) => {
-    setInputInfo({ ...inputInfo, [e.target.name]: e.target.value })
-  }
+    setInputInfo({ ...inputInfo, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    let formData = new FormData()
+    e.preventDefault();
+    let formData = new FormData();
     if (image) {
-      formData.append('image', image, image.name)
+      formData.append("image", image, image.name);
     }
-    formData.append('gender', gender)
-    formData.append('first_name', inputInfo.first_name)
-    formData.append('last_name', inputInfo.last_name)
-    formData.append('phone', inputInfo.phone)
-    formData.append('address', inputInfo.address)
-    formData.append('email', inputInfo.email)
-    formData.append('username', inputInfo.username)
-    formData.append('date_of_birth', inputInfo.date_of_birth)
-    formData.append('password', inputInfo.password)
-    formData.append('password2', inputInfo.password2)
-    mutate(formData)
-  }
+    formData.append("gender", gender);
+    formData.append("first_name", inputInfo.first_name);
+    formData.append("last_name", inputInfo.last_name);
+    formData.append("phone", inputInfo.phone);
+    formData.append("address", inputInfo.address);
+    formData.append("email", inputInfo.email);
+    formData.append("username", inputInfo.username);
+    formData.append("date_of_birth", inputInfo.date_of_birth);
+    formData.append("password", inputInfo.password);
+    formData.append("password2", inputInfo.password2);
+    mutate(formData);
+  };
 
   if (query.isLoading) {
-    return <Spinner />
+    return <Spinner />;
   }
 
   if (query.isError) {
-    const errorMsg = 'Something went wrong. Please reload page.'
-    return <Error errorMsg={errorMsg} />
+    const errorMsg = "Something went wrong. Please reload page.";
+    return <Error errorMsg={errorMsg} />;
   }
 
   return (
@@ -112,7 +110,7 @@ const NewTeacher = () => {
                   id="image"
                   type="file"
                   accept=".png, .jpg, .jpeg"
-                  style={{ display: 'none' }}
+                  style={{ display: "none" }}
                   onChange={(e) => setImage(e.target.files[0])}
                 />
               </div>
@@ -136,32 +134,32 @@ const NewTeacher = () => {
                     disabled={isLoading}
                     className={
                       !isError
-                        ? ''
-                        : error.response.data?.email && input.id === 'email'
-                        ? 'errorMsg'
+                        ? ""
+                        : error.response.data?.email && input.id === "email"
+                        ? "errorMsg"
                         : error.response.data?.username &&
-                          input.id === 'username'
-                        ? 'errorMsg'
-                        : error.response.data?.phone && input.id === 'phone'
-                        ? 'errorMsg'
+                          input.id === "username"
+                        ? "errorMsg"
+                        : error.response.data?.phone && input.id === "phone"
+                        ? "errorMsg"
                         : error.response.data?.password2 &&
-                          input.id === 'password2'
-                        ? 'errorMsg'
-                        : ''
+                          input.id === "password2"
+                        ? "errorMsg"
+                        : ""
                     }
                   />
-                  {error?.response.data?.email && input.id === 'email' && (
+                  {error?.response.data?.email && input.id === "email" && (
                     <span>{error.response.data?.email[0]}</span>
                   )}
-                  {error?.response.data?.phone && input.id === 'phone' && (
+                  {error?.response.data?.phone && input.id === "phone" && (
                     <span>{error.response.data?.phone[0]}</span>
                   )}
                   {error?.response.data?.password2 &&
-                    input.id === 'password2' && (
+                    input.id === "password2" && (
                       <span>{error.response.data?.password2[0]}</span>
                     )}
                   {error?.response.data?.username &&
-                    input.id === 'username' && (
+                    input.id === "username" && (
                       <span>{error.response.data?.username[0]}</span>
                     )}
                 </div>
@@ -211,7 +209,7 @@ const NewTeacher = () => {
                   {isLoading ? (
                     <CircularProgress size={22} color="inherit" />
                   ) : (
-                    'Create'
+                    "Create"
                   )}
                 </button>
               </div>
@@ -220,7 +218,7 @@ const NewTeacher = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default NewTeacher
+export default NewTeacher;

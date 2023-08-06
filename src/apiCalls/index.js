@@ -11,3 +11,11 @@ export const authCall = axios.create({
     Authorization: `Token ${token}`,
   },
 })
+
+export const authCallWithImage = axios.create({
+  baseURL: BASEURL,
+  headers: {
+    'Content-Type': 'multipart/form-data',
+    Authorization: `Token ${token}`,
+  },
+})
