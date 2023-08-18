@@ -1,94 +1,99 @@
 $base-color: #0d084d;
 
 .class {
-    .mainClassContainer {
-        padding: 20px 30px 20px 30px;
+  .mainClassContainer {
+    padding: 20px 30px 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .topContainer {
+      display: flex;
+      gap: 20px;
+
+      .leftContainer,
+      .rightContainer {
+        flex: 1;
+        box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+        -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      .leftContainer {
+        flex: 1.5;
+        .nameYear {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          h1,
+          h3 {
+            color: gray;
+            font-size: 18px;
+            font-weight: 500;
+          }
+        }
+
+        .leaders {
+          margin-top: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .masterInfo {
+            display: flex;
+            // align-items: center;
+            gap: 10px;
+
+            img {
+              height: 80px;
+              width: 80px;
+              object-fit: cover;
+            }
+
+            h1 {
+              font-size: 25px;
+              color: gray;
+            }
+          }
+        }
+      }
+    }
+
+    .classMembers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+
+      .studentClassCard {
+        box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
+        -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
         display: flex;
         flex-direction: column;
-        gap: 30px;
+        padding: 5px;
+        gap: 10px;
+        border-radius: 5px;
+        transition: 0.6s all ease-in;
 
-        .actions {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            .className {
-                box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
-                -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
-                color: $base-color;
-                padding: 10px 20px;
-                text-transform: uppercase;
-                font-size: 20px;
-                font-weight: 500;
-                border-radius: 5px;
-            }
-
-            .edit,
-            .delete {
-                height: 50px;
-                width: 50px;
-                border-radius: 50%;
-                padding: 10px;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
-                -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
-            }
-
-            .edit {
-                color: $base-color;
-
-                &:hover {
-                    background-color: $base-color;
-                    color: white;
-                }
-            }
-
-            .delete {
-                color: red;
-
-                &:hover {
-                    background-color: red;
-                    color: white;
-                }
-            }
+        &:hover {
+          transform: scale(1.06);
         }
 
-        .classMembers {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 25px;
-
-            .studentClassCard {
-                box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
-                -webkit-box-shadow: 0px 3px 9px 5px rgba(0, 0, 0, 0.11);
-                display: flex;
-                flex-direction: column;
-                padding: 5px;
-                gap: 10px;
-                border-radius: 5px;
-                transition: 0.6s all ease-in;
-
-                &:hover {
-                    transform: scale(1.06);
-                }
-
-                img {
-                    width: 265px;
-                    height: 350px;
-                    object-fit: cover;
-                }
-
-                .name {
-                    font-size: 17px;
-                    color: $base-color;
-                    text-transform: uppercase;
-                    align-self: center;
-                    margin-bottom: 10px;
-                }
-            }
+        img {
+          width: 265px;
+          height: 350px;
+          object-fit: cover;
         }
+
+        .name {
+          font-size: 17px;
+          color: $base-color;
+          text-transform: uppercase;
+          align-self: center;
+          margin-bottom: 10px;
+        }
+      }
     }
+  }
 }

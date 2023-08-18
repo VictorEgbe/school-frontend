@@ -1,6 +1,6 @@
 import "./Classes.scss";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { authCall } from "../../apiCalls/index";
 import Spinner from "../../components/loadingSpinner/Spinner";
@@ -11,6 +11,7 @@ import AddClass from "./AddClass/AddClass";
 const Classes = () => {
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { isError, isLoading, data } = useQuery({
     queryKey: ["classes"],
@@ -23,10 +24,11 @@ const Classes = () => {
       authCall
         .post("classes/create", JSON.stringify(apiData))
         .then((res) => res.data),
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.refetchQueries({ queryKey: ["dashboard"] });
       queryClient.refetchQueries({ queryKey: ["classes"] });
-      setOpen(false);
+      // setOpen(false);
+      navigate(`/classes/${data.id}`);
     },
   });
 
