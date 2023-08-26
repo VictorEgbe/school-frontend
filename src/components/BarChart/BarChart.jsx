@@ -1,19 +1,19 @@
-import { Chart } from 'react-google-charts'
+import { Chart } from "react-google-charts";
 
 const BarChart = ({ classStudents, currentYear }) => {
-  const constructedData = [['Classes', 'Boys', 'Girls', 'Total']]
+  const constructedData = [["Classes", "Boys", "Girls", "Total"]];
 
   for (let i = 0; i < classStudents.length; i++) {
-    let info = classStudents[i]
-    constructedData.push([info.name, info.boys, info.girls, info.total])
+    let info = classStudents[i];
+    constructedData.push([info.name, info.boys, info.girls, info.total]);
   }
 
   const options = {
     chart: {
-      title: 'Enrolment',
+      title: "Enrollment",
       subtitle: `Students per class for the year ${currentYear}`,
     },
-  }
+  };
 
   return (
     <Chart
@@ -23,7 +23,7 @@ const BarChart = ({ classStudents, currentYear }) => {
       data={constructedData}
       options={options}
     />
-  )
-}
+  );
+};
 
-export default BarChart
+export default BarChart;
